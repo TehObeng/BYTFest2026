@@ -46,6 +46,55 @@ const modalContentVariants: Variants = {
   exit: { opacity: 0, scale: 0.95, y: "2%", transition: { duration: 0.2, ease: "easeIn" } },
 };
 
+// Sub-component for individual gallery images with error handling
+interface GalleryImageItemProps {
+  image: GalleryImage;
+  onClick: () => void;
+}
+
+const GalleryImageItem: React.FC<GalleryImageItemProps> = ({ image, onClick }) => {
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    setHasError(true);
+  };
+
+  return (
+    <motion.div
+      className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease overflow-hidden group cursor-pointer aspect-square"
+      variants={imageCardVariants}
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick();}}
+      aria-label={`Lihat gambar ${image.title || image.alt}`}
+    >
+      {hasError ? (
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-event-text-muted p-3 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span className="text-xs sm:text-sm">{image.alt}</span>
+          <span className="text-xs mt-1">(Gambar tidak tersedia)</span>
+        </div>
+      ) : (
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="w-full h-full object-cover object-center transition-transform duration-300 ease-custom-ease group-hover:scale-105"
+          loading="lazy"
+          onError={handleError}
+        />
+      )}
+      {!hasError && image.title && (
+        <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-left">
+          <p className="block w-full text-white text-xs sm:text-sm font-semibold truncate">{image.title}</p>
+        </div>
+      )}
+    </motion.div>
+  );
+};
+
 
 const GalleryPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -59,7 +108,7 @@ const GalleryPage: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={pageVariants}
-      className="w-full text-left" // Ensure the container is full-width and text defaults to left
+      className="w-full text-left"
     >
       <motion.h2 className={pageTitleStyle} variants={titleVariants}>
         Galeri BYTF
@@ -76,31 +125,10 @@ const GalleryPage: React.FC = () => {
       {galleryData.length > 0 ? (
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6"
-          variants={pageVariants} // Container for stagger effect
+          variants={pageVariants}
         >
           {galleryData.map((image) => (
-            <motion.div
-              key={image.id}
-              className="bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease overflow-hidden group cursor-pointer aspect-square"
-              variants={imageCardVariants}
-              onClick={() => openModal(image)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') openModal(image);}}
-              aria-label={`Lihat gambar ${image.title || image.alt}`}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover object-center transition-transform duration-300 ease-custom-ease group-hover:scale-105"
-                loading="lazy"
-              />
-              {image.title && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-left"> {/* This is already text-left */}
-                  <p className="text-white text-xs sm:text-sm font-semibold truncate">{image.title}</p>
-                </div>
-              )}
-            </motion.div>
+            <GalleryImageItem key={image.id} image={image} onClick={() => openModal(image)} />
           ))}
         </motion.div>
       ) : (
@@ -128,7 +156,7 @@ const GalleryPage: React.FC = () => {
               variants={modalContentVariants}
             >
               <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                <h3 id="gallery-modal-title" className="text-lg font-semibold text-event-blue text-left"> {/* MODIFIED: Added text-left */}
+                <h3 id="gallery-modal-title" className="text-lg font-semibold text-event-blue text-left">
                   {selectedImage.title || selectedImage.alt}
                 </h3>
                 <button
@@ -141,14 +169,21 @@ const GalleryPage: React.FC = () => {
                   </svg>
                 </button>
               </div>
-              <div className="p-2 flex-grow flex items-center justify-center">
+              <div className="p-2 flex-grow flex items-center justify-center bg-gray-50"> {/* Added bg for contrast if image is transparent/small */}
                 <img 
                   src={selectedImage.src} 
                   alt={selectedImage.alt} 
-                  className="max-w-full max-h-[75vh] object-contain rounded" 
+                  className="max-w-full max-h-[75vh] object-contain rounded"
+                  onError={(e) => { // Basic error handling for modal image too
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    // Visually indicate error, could replace with text but alt is usually shown by browser
+                    target.style.border = '2px dashed #fca5a5'; // red-300
+                    target.style.padding = '1rem';
+                  }}
                 />
               </div>
-               <p className="p-4 text-sm text-event-text-muted text-center border-t border-gray-200">{selectedImage.alt}</p> {/* This is text-center by design */}
+               <p className="p-4 text-sm text-event-text-muted text-center border-t border-gray-200">{selectedImage.alt}</p>
             </motion.div>
           </motion.div>
         )}
