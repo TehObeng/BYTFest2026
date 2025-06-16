@@ -1,12 +1,25 @@
 {
   "name": "bytf-2026-app",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "description": "Batam Youth & Tourism Festival 2026 Web Application",
+  "author": "BYTF Organizing Committee",
+  "license": "MIT",
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "vite",
+    "typescript",
+    "tailwindcss",
+    "festival",
+    "batam"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "clean": "rm -rf node_modules dist package-lock.json && npm install"
   },
   "dependencies": {
     "@google/genai": "latest",
@@ -23,17 +36,7 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^6.3.5"
-  },
-  "description": "Batam Youth & Tourism Festival 2026 Web Application",
-  "main": "index.js",
-  "keywords": [
-    "react",
-    "vite",
-    "typescript",
-    "tailwindcss",
-    "festival"
-  ],
-  "author": "BYTF Organizing Committee (Placeholder)",
-  "license": "ISC"
+    "vite": "^6.3.5",
+    "rollup": "^3.29.4"
+  }
 }
