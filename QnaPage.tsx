@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { qnaData } from './qna-data';
+import { qnaData } from './data/qna-data';
 import CategorySelector from './CategorySelector';
 import QnaDisplay from './QnaDisplay';
 import { motion, Variants, Easing } from 'framer-motion';

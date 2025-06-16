@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { QnaItem } from './qna-data';
+import { QnaItem } from './data/qna-data';
 import { motion, Variants, Easing, AnimatePresence } from 'framer-motion';
 
 interface QnaDisplayProps {
