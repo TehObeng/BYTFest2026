@@ -23,13 +23,13 @@ const titleVariants: Variants = {
 };
 
 const imageCardVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  hidden: { opacity: 0, scale: 0.9, y: 25 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
     transition: {
-      duration: 0.4,
+      duration: 0.45,
       ease: [0.22, 1, 0.36, 1] as Easing
     }
   }
@@ -43,7 +43,7 @@ const modalOverlayVariants: Variants = {
 
 const modalContentVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9, y: "5%" },
-  visible: { opacity: 1, scale: 1, y: "0%", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as Easing } },
+  visible: { opacity: 1, scale: 1, y: "0%", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as Easing, delay:0.05 } },
   exit: { opacity: 0, scale: 0.95, y: "2%", transition: { duration: 0.25, ease: [0.64, 0, 0.78, 0] as Easing } },
 };
 
@@ -81,17 +81,18 @@ const GalleryGridItem: React.FC<GalleryGridItemProps> = ({ image, onItemClick })
 
   return (
     <motion.div
-      className="bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease overflow-hidden group cursor-pointer aspect-square relative transform hover:-translate-y-1"
+      className="bg-event-background-subtle rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease overflow-hidden group cursor-pointer aspect-square relative transform hover:-translate-y-1 hover:shadow-glow-accent/30"
       variants={imageCardVariants}
       onClick={onItemClick}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onItemClick(); }}
       aria-label={`Lihat gambar: ${image.title || image.alt}`}
+      whileHover={{ scale: 1.02 }}
     >
       {finalError || !initialSrc ? (
         <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 text-event-text-muted p-3 text-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 sm:h-12 sm:w-12 mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           <span className="text-xs sm:text-sm">{image.alt}</span>
@@ -102,17 +103,17 @@ const GalleryGridItem: React.FC<GalleryGridItemProps> = ({ image, onItemClick })
           <img
             src={currentSrc}
             alt={image.alt}
-            className="w-full h-full object-cover object-center transition-transform duration-300 ease-custom-ease group-hover:scale-105"
+            className="w-full h-full object-cover object-center transition-transform duration-350 ease-custom-ease group-hover:scale-110"
             loading="lazy"
             onError={handleError}
           />
-          {image.title && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-3 pt-6 text-left">
-              <p className="w-full text-white text-sm sm:text-base font-semibold truncate group-hover:whitespace-normal group-hover:text-event-accent-light transition-colors">
-                {image.title}
-              </p>
-            </div>
-          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition-opacity duration-300 opacity-0 group-hover:opacity-100 flex items-end p-3 sm:p-4">
+            {image.title && (
+                <p className="w-full text-white text-sm sm:text-base font-semibold truncate group-hover:whitespace-normal group-hover:text-event-accent-light transition-colors">
+                  {image.title}
+                </p>
+            )}
+          </div>
         </>
       )}
     </motion.div>
@@ -200,7 +201,7 @@ const GalleryPage: React.FC = () => {
       {galleryData.length > 0 ? (
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6"
-          variants={pageVariants} // This will stagger direct children (GalleryGridItem)
+          variants={pageVariants} 
         >
           {galleryData.map((image) => (
             <GalleryGridItem 
@@ -223,7 +224,7 @@ const GalleryPage: React.FC = () => {
       <AnimatePresence>
         {selectedImage && (
           <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-modal-backdrop cursor-pointer"
+            className="fixed inset-0 bg-black/85 backdrop-blur-lg flex items-center justify-center p-4 z-modal-backdrop cursor-pointer"
             variants={modalOverlayVariants}
             initial="hidden"
             animate="visible"
@@ -235,42 +236,45 @@ const GalleryPage: React.FC = () => {
             aria-describedby="gallery-modal-description"
           >
             <motion.div
-              className="bg-white rounded-xl shadow-modal w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden cursor-default z-modal-content"
+              className="bg-white rounded-xl shadow-modal w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden cursor-default z-modal-content"
               onClick={(e) => e.stopPropagation()}
               variants={modalContentVariants}
               role="document"
             >
-              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200">
+              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200/80 bg-gray-50 rounded-t-xl">
                 <h3 id="gallery-modal-title" className="text-left text-base sm:text-lg font-semibold text-event-blue">
                   {selectedImage.title || selectedImage.alt}
                 </h3>
                 <button
                   onClick={closeModal}
-                  className="text-gray-500 hover:text-event-accent transition-colors rounded-full p-1.5 -mr-1.5 focus:outline-none focus:ring-2 focus:ring-event-accent focus:ring-offset-2"
+                  className="text-gray-500 hover:text-event-accent-dark transition-colors rounded-full p-1.5 -mr-1.5 focus:outline-none focus:ring-2 focus:ring-event-accent focus:ring-offset-2 focus:ring-offset-gray-50"
                   aria-label="Tutup modal gambar"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
-              <div className="p-2 sm:p-4 flex-grow flex items-center justify-center bg-gray-100 min-h-[250px] sm:min-h-[350px]">
+              <div className="p-2 sm:p-4 flex-grow flex items-center justify-center bg-gray-200 min-h-[300px] sm:min-h-[400px]">
                 {modalFinalError ? (
                   <div className="text-center text-event-text-muted p-4">
-                    <p>Gambar tidak dapat dimuat.</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p className="font-medium">Gambar tidak dapat dimuat.</p>
                     <p className="text-sm">{selectedImage.alt}</p>
                   </div>
                 ) : (
                   <img 
                     src={modalCurrentSrc} 
                     alt={selectedImage.alt}
-                    className="max-w-full max-h-[calc(90vh-160px)] object-contain rounded-md" // Ensure image fits
+                    className="max-w-full max-h-[calc(90vh-180px)] object-contain rounded-md shadow-lg" 
                     onError={handleModalImageError}
                   />
                 )}
               </div>
-              <p id="gallery-modal-description" className="p-3 sm:p-4 text-xs sm:text-sm text-event-text-muted text-center border-t border-gray-200 bg-gray-50">
-                {selectedImage.alt}
+              <p id="gallery-modal-description" className="p-3 sm:p-4 text-xs sm:text-sm text-event-text-muted text-center border-t border-gray-200/80 bg-gray-50 rounded-b-xl">
+                {selectedImage.alt}{selectedImage.category && ` - Kategori: ${selectedImage.category}`}
               </p>
             </motion.div>
           </motion.div>

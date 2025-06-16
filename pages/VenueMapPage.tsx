@@ -25,7 +25,7 @@ const MAX_RETRIES = 2;
 const RETRY_DELAYS = [500, 1000];
 
 const VenueMapPage: React.FC = () => {
-  const initialMapUrl = "/images/venue_map_placeholder.webp";
+  const initialMapUrl = "/images/venue_map.webp";
   const [currentMapUrl, setCurrentMapUrl] = useState(`${initialMapUrl}?retry=0`);
   const [finalMapLoadError, setFinalMapLoadError] = useState(false);
   const [mapLoadAttempts, setMapLoadAttempts] = useState(0);
@@ -70,7 +70,7 @@ const VenueMapPage: React.FC = () => {
         transition={{ delay: 0.05 }}
       >
         Temukan jalanmu mengelilingi kemeriahan BYTF 2026! Peta venue detail akan tersedia di sini mendekati tanggal acara. 
-        Untuk sementara, berikut adalah gambaran area festival (placeholder).
+        Untuk sementara, berikut adalah gambaran area festival.
       </motion.p>
 
       <motion.div 
@@ -89,7 +89,7 @@ const VenueMapPage: React.FC = () => {
         ) : (
           <img
             src={currentMapUrl}
-            alt="Peta Venue BYTF 2026 (Placeholder)"
+            alt="Peta Venue BYTF 2026"
             className="w-full h-auto max-w-4xl object-contain rounded-md" // Constrain max width for very large maps
             onError={handleMapError}
           />

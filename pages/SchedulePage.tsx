@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, Variants, Easing } from 'framer-motion';
 import { scheduleData, festivalZones, Activity } from '../data/schedule-data';
+import { Page } from '../types';
 
 const pageTitleStyle = "text-left text-3xl sm:text-4xl md:text-4xl font-bold text-event-text-heading mt-0 mb-10 pb-5 border-b-2 border-gray-200";
 const sectionTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-6";
@@ -61,32 +62,48 @@ const zoneCardVariants: Variants = {
   }),
 };
 
+interface SchedulePageProps {
+  onNavigate: (page: Page, targetId?: string) => void;
+}
 
-const ActivityItem: React.FC<{ activity: Activity, index: number }> = ({ activity, index }) => {
+interface ActivityItemProps {
+    activity: Activity;
+    index: number;
+    onNavigate: (page: Page, targetId?: string) => void;
+}
+
+const ActivityItem: React.FC<ActivityItemProps> = ({ activity, index, onNavigate }) => {
   const handleArtistLinkClick = (artistId: string) => {
-    const lineupNavButton = document.getElementById('nav-lineup');
-    if (lineupNavButton) {
-      // Basic navigation for now. Advanced linking/state passing is more complex.
-      // Ideally, LineupPage would accept a prop or query param to highlight/scroll to an artist.
-      lineupNavButton.click(); 
-      // Example: history.pushState(null, '', `/lineup?artist=${artistId}`); // if using React Router or similar
-    }
+    onNavigate('lineup', artistId);
   };
 
   const renderActivityText = (act: Activity) => {
     if (act.linkedArtist) {
-      // Simple case: act.text is "Prefix text for " and linkedArtist.name is the link.
-      // More complex parsing would be needed if artist name is embedded within act.text.
+      // Find the position of the artist's name placeholder if it exists, e.g., "{artistName}"
+      const placeholderRegex = /\{artistName\}/g;
+      const parts = act.text.split(placeholderRegex);
+      
       return (
         <>
-          {act.text}
-          <button 
-            onClick={() => handleArtistLinkClick(act.linkedArtist!.id)}
-            className="font-semibold text-event-accent hover:text-event-accent-dark hover:underline focus:outline-none focus:ring-1 focus:ring-event-accent-light rounded-sm"
-            aria-label={`Lihat detail untuk ${act.linkedArtist.name}`}
-          >
-            {act.linkedArtist.name}
-          </button>
+          {parts.map((part, i) => (
+            <React.Fragment key={i}>
+              {part}
+              {i < parts.length - 1 && act.linkedArtist && (
+                <button 
+                  onClick={() => handleArtistLinkClick(act.linkedArtist!.id)}
+                  className="font-semibold text-event-accent hover:text-event-accent-dark hover:underline focus:outline-none focus:ring-1 focus:ring-event-accent/50 rounded-sm px-0.5 py-0 inline items-center"
+                  aria-label={`Lihat detail untuk ${act.linkedArtist.name}`}
+                >
+                  <span className="inline-flex items-center gap-1">
+                    {act.linkedArtist.name}
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 inline" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                </button>
+              )}
+            </React.Fragment>
+          ))}
           {act.emphasis && <span className="italic text-gray-500 ml-1">{act.emphasis}</span>}
         </>
       );
@@ -118,7 +135,7 @@ const ActivityItem: React.FC<{ activity: Activity, index: number }> = ({ activit
 };
 
 
-const SchedulePage: React.FC = () => {
+const SchedulePage: React.FC<SchedulePageProps> = ({ onNavigate }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -186,7 +203,7 @@ const SchedulePage: React.FC = () => {
                   variants={tabContentVariants} 
                 >
                   {dayGroup.activities.map((activity, actIndex) => (
-                    <ActivityItem key={actIndex} activity={activity} index={actIndex} />
+                    <ActivityItem key={actIndex} activity={activity} index={actIndex} onNavigate={onNavigate} />
                   ))}
                 </motion.ul>
               </div>

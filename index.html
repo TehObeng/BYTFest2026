@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BYTF 2026 - Batam Youth & Tourism Festival | bytfest.org</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎉</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,44 +19,55 @@
             },
             colors: {
               'event-blue': {
-                DEFAULT: '#0D6EFD', // Brighter Bootstrap Blue
-                'dark': '#0A58CA',  // Original Bootstrap Blue for darker shades
-                'light': '#60A5FA', // More saturated light blue
-                'extralight': '#E0EFFF', // Cleaner very light blue
+                DEFAULT: '#0D6EFD', 
+                'dark': '#0A58CA',  
+                'light': '#3B82F6', // Adjusted for better harmony
+                'extralight': '#EFF6FF', // Cleaner, softer light blue
               },
               'event-green': {
-                DEFAULT: '#10B981', // Vibrant modern green (Tailwind Emerald 500)
-                'dark': '#059669',  // Darker Green (Tailwind Emerald 600)
+                DEFAULT: '#10B981', 
+                'dark': '#059669',
+                'light': '#34D399', 
               },
-              'event-accent': { // New Teal Accent Color
-                DEFAULT: '#14B8A6', // Tailwind Teal 500
-                'dark': '#0D9488',  // Tailwind Teal 600
-                'light': '#5EEAD4', // Tailwind Teal 300
+              'event-accent': { 
+                DEFAULT: '#14B8A6', 
+                'dark': '#0D9488',  
+                'light': '#5EEAD4', 
               },
-              'event-dark': '#1F2937',     // Tailwind gray-800 (slightly darker than previous for strong contrast)
-              'event-gray-text': '#6B7280', // Tailwind gray-500 (good for less important text)
+              'event-dark': '#111827', // Tailwind gray-900 (darker for strong contrast)
+              'event-gray-text': '#4B5563', // Tailwind gray-600
               'event-text': {
-                DEFAULT: '#374151',      // Primary body text (Tailwind gray-700)
-                'muted': '#4B5563',      // Secondary/muted text (Tailwind gray-600)
-                'heading': '#111827'     // Heading text (Tailwind gray-900)
+                DEFAULT: '#374151',      
+                'muted': '#6B7280', // Tailwind gray-500      
+                'heading': '#1F2937' // Tailwind gray-800
               },
-              'event-background': '#F9FAFB' // Tailwind gray-50 (very light page background)
+              'event-background': '#F8FAFC', // Tailwind slate-50 (very light, slightly cool gray)
+              'event-background-subtle': '#F1F5F9' // Tailwind slate-100 (for card backgrounds, etc.)
             },
             boxShadow: {
-              'card': '0 5px 15px rgba(0, 0, 0, 0.07), 0 3px 6px rgba(0, 0, 0, 0.05)',
-              'card-hover': '0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.08)',
-              'nav': '0 3px 6px rgba(0,0,0,0.06)',
-              'button': '0 4px 8px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)',
-              'modal': '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
-              'header': '0 4px 12px rgba(0,0,0,0.07)', // Subtle shadow for header
+              'card': '0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05)', // Softer card shadow
+              'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06)', // Softer hover
+              'nav': '0 2px 4px rgba(0,0,0,0.05)', // Softer nav shadow
+              'button': '0 3px 6px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05)', // Softer button shadow
+              'modal': '0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+              'header': '0 3px 8px rgba(0,0,0,0.06)', 
+              'glow-accent': '0 0 15px 5px rgba(20, 184, 166, 0.3)', // Teal accent glow
+              'glow-blue': '0 0 15px 5px rgba(13, 110, 253, 0.3)', // Blue glow
             },
             borderRadius: {
-              'xl': '0.75rem', // 12px (standard for cards)
-              '2xl': '1rem',    // 16px (for larger containers, hero sections)
-              'lg': '0.5rem', // 8px (standard for buttons, smaller elements)
+              'xl': '0.75rem', 
+              '2xl': '1rem',    
+              'lg': '0.5rem', 
             },
             transitionTimingFunction: {
              'custom-ease': 'cubic-bezier(0.4, 0, 0.2, 1)',
+            },
+            backgroundImage: {
+              'subtle-dots': "radial-gradient(circle at 1px 1px, #cbd5e1 0.5px, transparent 0)", // Subtle dot pattern
+              'hero-gradient': "linear-gradient(135deg, theme('colors.event-blue.dark') 0%, theme('colors.event-accent.DEFAULT') 100%)",
+            },
+            backgroundSize: {
+                'dots-sm': '4px 4px',
             },
             keyframes: { 
               fadeInUp: {
@@ -67,14 +79,19 @@
                 '100%': { opacity: '1'},
               },
               pulseLight: {
-                '0%, 100%': { opacity: '1' },
-                '50%': { opacity: '.7' },
+                '0%, 100%': { opacity: '1', boxShadow: '0 0 8px 2px rgba(255,255,255,0.3)' },
+                '50%': { opacity: '.85', boxShadow: '0 0 12px 4px rgba(255,255,255,0.2)' },
+              },
+              subtleShine: {
+                '0%': { backgroundPosition: '-200% center' },
+                '100%': { backgroundPosition: '200% center' },
               }
             },
             animation: { 
               fadeInUp: 'fadeInUp 0.5s ease-out forwards',
               fadeIn: 'fadeIn 0.5s ease-out forwards',
-              pulseLight: 'pulseLight 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              pulseLight: 'pulseLight 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              subtleShine: 'subtleShine 3s linear infinite',
             }
           }
         }
@@ -85,20 +102,43 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-family: 'Inter', sans-serif;
+        /* Applying subtle dot pattern to body - adjust color and size in tailwind.config */
+        /* background-image: theme('backgroundImage.subtle-dots'); 
+           background-size: theme('backgroundSize.dots-sm'); */
       }
       .text-shadow-custom {
-        text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.15); /* Softer shadow */
       }
       .page-container {
         @apply p-4 sm:p-5 md:p-6 lg:p-8 flex-grow w-full max-w-7xl mx-auto;
       }
-      /* Standardized z-index values */
-      .z-fab { @apply z-[60]; }        /* Floating Action Buttons */
-      .z-header { @apply z-[50]; }     /* Sticky Header/Navbar */
-      .z-dropdown { @apply z-[40]; }   /* Dropdown Menus */
-      .z-modal-backdrop { @apply z-[90]; } /* Modal backdrop */
+      
+      /* Standardized z-index values - higher values for more important elements */
       .z-modal-content { @apply z-[100]; }  /* Modal content itself */
+      .z-modal-backdrop { @apply z-[90]; } /* Modal backdrop */
+      .z-fab { @apply z-[60]; }        /* Floating Action Buttons, e.g. ScrollToTop */
+      .z-header { @apply z-[50]; }     /* Sticky Header/Navbar */
+      .z-dropdown { @apply z-[40]; }   /* Dropdown Menus, Filters */
+      .z-content-overlay { @apply z-[10]; } /* Overlays on content cards etc. */
+      .z-background-element { @apply z-[1];} /* Decorative background elements */
 
+
+      /* Custom scrollbar for a more modern look (optional) */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: theme('colors.event-background-subtle');
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: theme('colors.event-accent.dark');
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: theme('colors.event-accent.DEFAULT');
+      }
     </style>
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
@@ -136,7 +176,8 @@
     "./SponsorLogoGrid": "./SponsorLogoGrid.tsx",
     "./CountdownTimer": "./CountdownTimer.tsx",
     "./HighlightModal": "./HighlightModal.tsx",
-    "./SponsorDetailModal": "./SponsorDetailModal.tsx"
+    "./SponsorDetailModal": "./SponsorDetailModal.tsx",
+    "./data/schedule-data": "./data/schedule-data.ts"
   }
 }
 </script>
