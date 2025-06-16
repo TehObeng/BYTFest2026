@@ -41,9 +41,10 @@ const logoItemVariants: Variants = {
 // Sub-component to handle individual sponsor image loading and error state
 const SponsorImage: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
   const [hasError, setHasError] = useState(false);
+  const logoActuallyAvailable = sponsor.logoUrl && sponsor.logoUrl.trim() !== '';
 
   // If logoUrl is empty/whitespace or an error occurred, show fallback
-  if (hasError || !sponsor.logoUrl || sponsor.logoUrl.trim() === '') {
+  if (hasError || !logoActuallyAvailable) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 p-2 rounded-md text-center">
         {/* Placeholder Icon */}
