@@ -7,12 +7,14 @@ export interface Sponsor {
   logoUrl: string;
   websiteUrl?: string;
   tier?: string; // Optional: for future styling or grouping
+  explanation?: string; // New field for sponsor description/explanation
 }
 
 interface SponsorLogoGridProps {
   sponsors: Sponsor[];
-  title?: string;
-  customGridClasses?: string; // New prop for custom grid classes
+  title?: string; // This title will now be styled by the parent (SponsorsPage)
+  customGridClasses?: string;
+  onSponsorClick?: (sponsor: Sponsor) => void;
 }
 
 const gridContainerVariants: Variants = {
@@ -39,23 +41,20 @@ const logoItemVariants: Variants = {
   },
 };
 
-// Sub-component to handle individual sponsor image loading and error state
 const SponsorImage: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
   const [hasError, setHasError] = useState(false);
   const logoActuallyAvailable = sponsor.logoUrl && sponsor.logoUrl.trim() !== '';
 
-  // If logoUrl is empty/whitespace or an error occurred, show fallback
   if (hasError || !logoActuallyAvailable) {
     return (
       <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 p-2 rounded-md text-center">
-        {/* Placeholder Icon */}
         <svg 
-          className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400 mb-1" // Adjusted size
+          className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400 mb-1"
           fill="none" 
           viewBox="0 0 24 24" 
           stroke="currentColor" 
           strokeWidth="1.5"
-          aria-hidden="true" // Icon is decorative
+          aria-hidden="true"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
@@ -80,10 +79,10 @@ const SponsorImage: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
   );
 };
 
-const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title, customGridClasses }) => {
+const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title, customGridClasses, onSponsorClick }) => {
   if (!sponsors || sponsors.length === 0) {
     return (
-      <section className="mt-8 sm:mt-10 mb-6 sm:mb-8">
+      <section className="mt-8 sm:mt-10 mb-6 sm:mb-8 w-full">
          {title && <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-event-text-heading mb-6 sm:mb-8 text-center">{title}</h3>}
         <p className="text-center text-event-text-muted">Sponsor akan segera diumumkan untuk kategori ini.</p>
       </section>
@@ -91,10 +90,13 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title, cust
   }
 
   return (
-    <section className="mt-8 sm:mt-10 mb-6 sm:mb-8">
-      {title && <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-event-text-heading mb-6 sm:mb-8 text-center">{title}</h3>}
+    // Removed outer <section> tag, as parent SponsorsPage.tsx now wraps this in a <motion.section>
+    // The parent's <motion.section> will handle its own margins (mb-10)
+    <div className="w-full max-w-5xl px-4 sm:px-0"> {/* Added padding for smaller screens if max-w becomes constraining */}
+      {/* The title's style (font size, color, margin) is now primarily controlled by the 'title' prop's content from SponsorsPage tierDisplayConfig */}
+      {title && <h3 className="text-center mb-6 sm:mb-8" dangerouslySetInnerHTML={{ __html: title.replace(/class="[^"]*"/g, '') }}></h3>}
       <motion.div
-        className={customGridClasses || "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 items-center"}
+        className={customGridClasses || "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 items-center justify-items-center"}
         variants={gridContainerVariants}
         initial="hidden"
         whileInView="visible"
@@ -102,24 +104,25 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title, cust
       >
         {sponsors.map((sponsor, index) => (
           <motion.div
-            key={sponsor.name + index} // Using name + index for potentially non-unique names, ensure unique keys
+            key={sponsor.name + index} 
             variants={logoItemVariants}
-            className="p-2 sm:p-3 bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:scale-105"
+            className={`p-2 sm:p-3 bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:scale-105 w-full ${onSponsorClick ? 'cursor-pointer' : ''}`}
+            onClick={() => onSponsorClick && onSponsorClick(sponsor)}
+            role={onSponsorClick ? "button" : undefined}
+            tabIndex={onSponsorClick ? 0 : undefined}
+            onKeyDown={onSponsorClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onSponsorClick(sponsor); } : undefined}
+            aria-label={onSponsorClick ? `Lihat detail untuk ${sponsor.name}` : `${sponsor.name} logo`}
           >
-            <a
-              href={sponsor.websiteUrl || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={`Visit ${sponsor.name}`}
-              className="block aspect-[3/2] flex items-center justify-center" // Ensure <a> tag itself handles aspect ratio
-              aria-label={`Visit ${sponsor.name}'s website. Logo: ${sponsor.name}`}
+            <div
+              title={onSponsorClick ? `Lihat detail untuk ${sponsor.name}` : `Visit ${sponsor.name}`}
+              className="block aspect-[3/2] flex items-center justify-center"
             >
               <SponsorImage sponsor={sponsor} />
-            </a>
+            </div>
           </motion.div>
         ))}
       </motion.div>
-    </section>
+    </div>
   );
 };
 
