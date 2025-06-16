@@ -1,0 +1,1 @@
+export type Page = 'home' | 'about' | 'qna' | 'schedule' | 'sponsors' | 'contact' | 'lineup' | 'tickets' | 'gallery' | 'venueMap';

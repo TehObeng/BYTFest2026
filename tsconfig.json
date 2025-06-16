@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "types": ["vite/client"], // For process.env typings
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"] // Optional: for nicer absolute imports like @/components/Navbar
+    }
+  },
+  "include": ["src", "vite.config.ts"], // Ensures Vite config is also type-checked
+  "exclude": ["node_modules", "dist"]
+}
