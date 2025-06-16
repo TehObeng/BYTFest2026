@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
-import { ticketData, TicketTier } from '../data/ticket-data'; // Updated path
+import { ticketData, TicketTier } from './ticket-data'; // Import data and type
 
 const pageTitleStyle = "text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
 

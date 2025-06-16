@@ -1,4 +1,4 @@
-import { Sponsor } from '../components/SponsorLogoGrid'; // Updated path
+import { Sponsor } from './SponsorLogoGrid';
 
 // Placeholder sponsor data previously in SponsorsPage.tsx
 export const mockSponsors: Sponsor[] = [

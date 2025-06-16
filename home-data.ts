@@ -1,4 +1,4 @@
-import { HighlightData } from '../components/HighlightModal'; // Updated path
+import { HighlightData } from './HighlightModal'; // HighlightData is used by festivalHighlightsData if moved here
 
 export interface GuestStar {
   name: string;

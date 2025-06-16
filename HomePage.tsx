@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
-import CountdownTimer from './CountdownTimer'; // Path relative to src/components/
-import HighlightModal, { HighlightData } from './HighlightModal'; // Path relative to src/components/
-import { guestStars, latestNewsData, festivalHighlightsData } from '../data/home-data'; // Updated path to src/data/
+import CountdownTimer from './CountdownTimer'; // Import CountdownTimer
+import HighlightModal, { HighlightData } from './HighlightModal'; // Import HighlightModal and its type
+import { guestStars, latestNewsData, festivalHighlightsData } from './home-data'; // Import data
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 30 },

@@ -22,7 +22,7 @@ const itemVariants: Variants = {
 };
 
 const VenueMapPage: React.FC = () => {
-  const placeholderMapUrl = "/images/venue_map_placeholder.webp"; // Placeholder image path in public/images/
+  const placeholderMapUrl = "/images/venue_map_placeholder.webp"; // Placeholder image path
   const [mapLoadError, setMapLoadError] = useState(false);
 
   return (

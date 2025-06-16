@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence, Variants, Easing } from 'framer-motion';
-import { galleryData, GalleryImage } from '../data/gallery-data'; // Updated path
+import { galleryData, GalleryImage } from './gallery-data';
 
 const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
 

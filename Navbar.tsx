@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Page } from '../types/types'; // Updated path
+import { Page } from './types';
 
 interface NavbarProps {
   currentPage: Page;

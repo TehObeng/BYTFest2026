@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Page } from './types/types'; // Updated path
-import { motion, AnimatePresence } from 'framer-motion';
+import { Page } from './types'; // Import Page type
+import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion
 
-import './index.css'; // Import Tailwind CSS
-
-import Navbar from './components/Navbar'; // Updated path
-import HomePage from './components/HomePage'; // Updated path
-import AboutPage from './components/AboutPage'; // Updated path
-import QnaPage from './components/QnaPage'; // Updated path
-import SchedulePage from './components/SchedulePage'; // Updated path
-import SponsorsPage from './components/SponsorsPage'; // Updated path
-import ContactPage from './components/ContactPage'; // Updated path
-import ScrollToTopButton from './components/ScrollToTopButton'; // Updated path
-import LineupPage from './components/LineupPage'; // Updated path
-import TicketsPage from './components/TicketsPage'; // Updated path
-import GalleryPage from './components/GalleryPage'; // Updated path
-import VenueMapPage from './components/VenueMapPage'; // Updated path
+import Navbar from './Navbar'; // Import Navbar
+import HomePage from './HomePage'; // Import HomePage
+import AboutPage from './AboutPage'; // Import AboutPage
+import QnaPage from './QnaPage'; // Import QnaPage
+import SchedulePage from './SchedulePage'; // Import SchedulePage
+import SponsorsPage from './SponsorsPage'; // Import SponsorsPage
+import ContactPage from './ContactPage'; // Import ContactPage
+import ScrollToTopButton from './ScrollToTopButton'; // Import ScrollToTopButton
+import LineupPage from './LineupPage'; // Import LineupPage
+import TicketsPage from './TicketsPage'; // Import TicketsPage
+import GalleryPage from './GalleryPage'; // Import GalleryPage
+import VenueMapPage from './VenueMapPage'; // Import VenueMapPage
 
 const getPageTitle = (pageKey: Page): string => {
   const baseTitle = "BYTF 2026";
@@ -51,6 +49,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     document.title = getPageTitle(currentPage);
+    // For better accessibility, consider managing focus to the new page's main heading
+    // or using an ARIA live region to announce page changes.
   }, [currentPage]);
 
   const renderPage = () => {
@@ -149,11 +149,7 @@ const App: React.FC = () => {
 const rootElement = document.getElementById('root');
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  root.render(<App />);
 } else {
   console.error('Root element not found');
 }

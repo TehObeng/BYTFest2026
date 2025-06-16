@@ -1,4 +1,5 @@
 
+
 export type QnaItem = {
   q: string;
   a: string;

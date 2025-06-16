@@ -111,7 +111,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetStartDate, target
     const timer = setInterval(calculateState, 1000);
 
     return () => clearInterval(timer);
-  }, [targetStartDate, targetEndDate]); 
+  }, [targetStartDate, targetEndDate]); // Corrected: Removed extra parenthesis here
   
   if (eventStatus === 'loading') {
     return <div className="text-center py-6 text-white">Memuat hitung mundur...</div>;
