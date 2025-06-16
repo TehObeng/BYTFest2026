@@ -42,11 +42,27 @@ const logoItemVariants: Variants = {
 const SponsorImage: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
   const [hasError, setHasError] = useState(false);
 
-  if (hasError || !sponsor.logoUrl) {
-    // Fallback UI if image fails to load or URL is missing
+  // If logoUrl is empty/whitespace or an error occurred, show fallback
+  if (hasError || !sponsor.logoUrl || sponsor.logoUrl.trim() === '') {
     return (
-      <div className="w-full h-full flex items-center justify-center text-xs text-event-text-muted bg-gray-100 p-2 text-center break-words rounded-md">
-        {`${sponsor.name}`}
+      <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100 p-2 rounded-md text-center">
+        {/* Placeholder Icon */}
+        <svg 
+          className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400 mb-1" // Adjusted size
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor" 
+          strokeWidth="1.5"
+          aria-hidden="true" // Icon is decorative
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span className="text-xs text-event-text-muted break-words leading-tight">
+          {sponsor.name}
+        </span>
+        <span className="text-[10px] text-gray-400 leading-tight mt-0.5"> 
+          (Logo tidak tersedia)
+        </span>
       </div>
     );
   }
@@ -84,7 +100,7 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title }) =>
       >
         {sponsors.map((sponsor, index) => (
           <motion.div
-            key={index}
+            key={index} // Using index as key; if sponsors can be reordered/changed, a unique sponsor.id would be better.
             variants={logoItemVariants}
             className="p-2 sm:p-3 bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:scale-105"
           >
@@ -94,6 +110,7 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title }) =>
               rel="noopener noreferrer"
               title={`Visit ${sponsor.name}`}
               className="block aspect-[3/2] flex items-center justify-center" // Ensure <a> tag itself handles aspect ratio
+              aria-label={`Visit ${sponsor.name}'s website. Logo: ${sponsor.name}`}
             >
               <SponsorImage sponsor={sponsor} />
             </a>
