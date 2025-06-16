@@ -96,7 +96,7 @@ const GalleryPage: React.FC = () => {
                 loading="lazy"
               />
               {image.title && (
-                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-left"> {/* Changed text-center to text-left */}
+                <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-left"> {/* This is already text-left */}
                   <p className="text-white text-xs sm:text-sm font-semibold truncate">{image.title}</p>
                 </div>
               )}
@@ -128,7 +128,7 @@ const GalleryPage: React.FC = () => {
               variants={modalContentVariants}
             >
               <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                <h3 id="gallery-modal-title" className="text-lg font-semibold text-event-blue">
+                <h3 id="gallery-modal-title" className="text-lg font-semibold text-event-blue text-left"> {/* MODIFIED: Added text-left */}
                   {selectedImage.title || selectedImage.alt}
                 </h3>
                 <button
@@ -148,7 +148,7 @@ const GalleryPage: React.FC = () => {
                   className="max-w-full max-h-[75vh] object-contain rounded" 
                 />
               </div>
-               <p className="p-4 text-sm text-event-text-muted text-center border-t border-gray-200">{selectedImage.alt}</p>
+               <p className="p-4 text-sm text-event-text-muted text-center border-t border-gray-200">{selectedImage.alt}</p> {/* This is text-center by design */}
             </motion.div>
           </motion.div>
         )}
