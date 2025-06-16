@@ -67,25 +67,25 @@ export const guestStars: GuestStar[] = [
   {
     name: "JKT48",
     description: "Saksikan penampilan energik dari idol group fenomenal JKT48!",
-    imagePath: "/images/artist/jkt48.webp",
+    imagePath: "/images/artist/jkt48.jpg",
     type: "Idol Group"
   },
   {
     name: "HIVI!",
     description: "Nikmati alunan musik pop ceria dan lagu-lagu hits dari HIVI!",
-    imagePath: "/images/artist/hivi.webp",
+    imagePath: "/images/artist/hivi.jpg",
     type: "Band Pop"
   },
   {
     name: "Juicy Luicy",
     description: "Terhanyut dalam melodi sendu dan lirik puitis bersama Juicy Luicy.",
-    imagePath: "/images/artist/juicy-luicy.webp",
+    imagePath: "/images/artist/juicy.jpg",
     type: "Band Pop Puitis"
   },
   {
     name: "Eka Gustiwana",
     description: "Rasakan pengalaman musik elektronik unik dan aransemen kreatif dari Eka Gustiwana.",
-    imagePath: "/images/artist/eka-gustiwana.webp",
+    imagePath: "/images/artist/eka.jpg",
     type: "DJ / Produser"
   },
 ];
