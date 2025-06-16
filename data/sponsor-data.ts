@@ -1,13 +1,21 @@
 import { Sponsor } from '../SponsorLogoGrid';
 
-// Placeholder sponsor data previously in SponsorsPage.tsx
+import pertaminaLogo from '../Images/logosponsor/pertamina.png';
+import betaSolutionsLogo from '../Images/logosponsor/beta_solutions.png';
+import gammaIncLogo from '../Images/logosponsor/gamma_inc.png';
+import deltaCoLogo from '../Images/logosponsor/delta_co.png';
+import epsilonLLCLogo from '../Images/logosponsor/epsilon_llc.png';
+import zetaGroupLogo from '../Images/logosponsor/zeta_group.png';
+import etaFoundationLogo from '../Images/logosponsor/eta_foundation.png';
+import thetaLtdLogo from '../Images/logosponsor/theta_ltd.png';
+
 export const mockSponsors: Sponsor[] = [
-  { name: "Pertamina", logoUrl: "/images/logosponsor/pertamina.png", websiteUrl: "https://www.pertamina.com/", tier: "Platinum" },
-  { name: "Beta Solutions", logoUrl: "../images/logosponsor/beta_solutions.png", websiteUrl: "#", tier: "Gold" },
-  { name: "Gamma Inc.", logoUrl: "../images/logosponsor/gamma_inc.png", websiteUrl: "#", tier: "Gold" },
-  { name: "Delta Co.", logoUrl: "../images/logosponsor/delta_co.png", websiteUrl: "#", tier: "Silver" },
-  { name: "Epsilon LLC", logoUrl: "../images/logosponsor/epsilon_llc.png", websiteUrl: "#", tier: "Silver" },
-  { name: "Zeta Group", logoUrl: "../images/logosponsor/zeta_group.png", websiteUrl: "#", tier: "Community Partner" },
-  { name: "Eta Foundation", logoUrl: "../images/logosponsor/eta_foundation.png", websiteUrl: "#", tier: "Community Partner" },
-  { name: "Theta Ltd.", logoUrl: "../images/logosponsor/theta_ltd.png", websiteUrl: "#", tier: "Media Partner" },
+  { name: "Pertamina", logoUrl: pertaminaLogo, websiteUrl: "https://www.pertamina.com/", tier: "Platinum" },
+  { name: "Beta Solutions", logoUrl: betaSolutionsLogo, websiteUrl: "#", tier: "Gold" },
+  { name: "Gamma Inc.", logoUrl: gammaIncLogo, websiteUrl: "#", tier: "Gold" },
+  { name: "Delta Co.", logoUrl: deltaCoLogo, websiteUrl: "#", tier: "Silver" },
+  { name: "Epsilon LLC", logoUrl: epsilonLLCLogo, websiteUrl: "#", tier: "Silver" },
+  { name: "Zeta Group", logoUrl: zetaGroupLogo, websiteUrl: "#", tier: "Community Partner" },
+  { name: "Eta Foundation", logoUrl: etaFoundationLogo, websiteUrl: "#", tier: "Community Partner" },
+  { name: "Theta Ltd.", logoUrl: thetaLtdLogo, websiteUrl: "#", tier: "Media Partner" },
 ];

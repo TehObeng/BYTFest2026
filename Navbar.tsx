@@ -15,6 +15,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
     { key: 'schedule', label: 'Jadwal' },
     { key: 'tickets', label: 'Tiket' },
     { key: 'gallery', label: 'Galeri'},
+    { key: 'merchandise', label: 'Merchandise'}, // Added Merchandise link
     { key: 'venueMap', label: 'Peta Venue'},
     { key: 'sponsors', label: 'Sponsor' },
     { key: 'qna', label: 'Info & Q&A' },

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Page } from './types'; // Import Page type
@@ -15,6 +16,7 @@ import LineupPage from './pages/LineupPage'; // Import LineupPage
 import TicketsPage from './pages/TicketsPage'; // Import TicketsPage
 import GalleryPage from './pages/GalleryPage'; // Import GalleryPage
 import VenueMapPage from './pages/VenueMapPage'; // Import VenueMapPage
+import MerchandisePage from './pages/MerchandisePage'; // Import MerchandisePage
 
 const getPageTitle = (pageKey: Page): string => {
   const baseTitle = "BYTF 2026";
@@ -31,6 +33,8 @@ const getPageTitle = (pageKey: Page): string => {
       return `${baseTitle} | Tiket`;
     case 'gallery':
       return `${baseTitle} | Galeri`;
+    case 'merchandise':
+      return `${baseTitle} | Merchandise Resmi`; // Added title for Merchandise
     case 'venueMap':
       return `${baseTitle} | Peta Venue`;
     case 'sponsors':
@@ -67,6 +71,8 @@ const App: React.FC = () => {
         return <TicketsPage />;
       case 'gallery':
         return <GalleryPage />;
+      case 'merchandise':
+        return <MerchandisePage />; // Added case for MerchandisePage
       case 'venueMap':
         return <VenueMapPage />;
       case 'sponsors':
