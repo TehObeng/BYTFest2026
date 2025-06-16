@@ -18,33 +18,41 @@
             },
             colors: {
               'event-blue': {
-                DEFAULT: '#0A58CA', // Primary Blue (Slightly more vibrant Bootstrap blue)
-                'dark': '#084298',  // Darker for depth, hover
-                'light': '#A9D1FB', // Lighter for accents
-                'extralight': '#E9F3FF', // Very light for backgrounds, hero
+                DEFAULT: '#0D6EFD', // Brighter Bootstrap Blue
+                'dark': '#0A58CA',  // Original Bootstrap Blue for darker shades
+                'light': '#60A5FA', // More saturated light blue
+                'extralight': '#E0EFFF', // Cleaner very light blue
               },
               'event-green': {
-                DEFAULT: '#198754', // Bootstrap Green - for CTAs
-                'dark': '#146C43',  // Darker Green
+                DEFAULT: '#10B981', // Vibrant modern green (Tailwind Emerald 500)
+                'dark': '#059669',  // Darker Green (Tailwind Emerald 600)
               },
-              'event-dark': '#1A202C',     // Very Dark (like Tailwind gray-900)
-              'event-gray-text': '#A0AEC0', // Muted text (like Tailwind gray-500)
+              'event-accent': { // New Teal Accent Color
+                DEFAULT: '#14B8A6', // Tailwind Teal 500
+                'dark': '#0D9488',  // Tailwind Teal 600
+                'light': '#5EEAD4', // Tailwind Teal 300
+              },
+              'event-dark': '#1F2937',     // Tailwind gray-800 (slightly darker than previous for strong contrast)
+              'event-gray-text': '#6B7280', // Tailwind gray-500 (good for less important text)
               'event-text': {
-                DEFAULT: '#1F2937',      // Primary body text (Tailwind gray-800)
+                DEFAULT: '#374151',      // Primary body text (Tailwind gray-700)
                 'muted': '#4B5563',      // Secondary/muted text (Tailwind gray-600)
                 'heading': '#111827'     // Heading text (Tailwind gray-900)
               },
-              'event-background': '#F8F9FA' // Light page background (almost white)
+              'event-background': '#F9FAFB' // Tailwind gray-50 (very light page background)
             },
             boxShadow: {
-              'card': '0 4px 12px rgba(0, 0, 0, 0.08)',
-              'card-hover': '0 8px 20px rgba(0, 0, 0, 0.1)',
-              'nav': '0 2px 4px rgba(0, 0, 0, 0.05)',
-              'button': '0 4px 10px rgba(0, 0, 0, 0.1)'
+              'card': '0 5px 15px rgba(0, 0, 0, 0.07), 0 3px 6px rgba(0, 0, 0, 0.05)',
+              'card-hover': '0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.08)',
+              'nav': '0 3px 6px rgba(0,0,0,0.06)',
+              'button': '0 4px 8px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.06)',
+              'modal': '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
+              'header': '0 4px 12px rgba(0,0,0,0.07)', // Subtle shadow for header
             },
             borderRadius: {
-              'xl': '0.75rem', // 12px
-              '2xl': '1rem',    // 16px
+              'xl': '0.75rem', // 12px (standard for cards)
+              '2xl': '1rem',    // 16px (for larger containers, hero sections)
+              'lg': '0.5rem', // 8px (standard for buttons, smaller elements)
             },
             transitionTimingFunction: {
              'custom-ease': 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -57,40 +65,40 @@
               fadeIn: {
                 '0%': { opacity: '0' },
                 '100%': { opacity: '1'},
+              },
+              pulseLight: {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '.7' },
               }
             },
             animation: { 
               fadeInUp: 'fadeInUp 0.5s ease-out forwards',
               fadeIn: 'fadeIn 0.5s ease-out forwards',
+              pulseLight: 'pulseLight 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }
           }
         }
       }
     </script>
     <style type="text/tailwindcss">
-      /* Custom CSS for potential overlaps or global styles if Tailwind isn't enough */
       body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        font-family: 'Inter', sans-serif;
       }
+      .text-shadow-custom {
+        text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      }
+      .page-container {
+        @apply p-4 sm:p-5 md:p-6 lg:p-8 flex-grow w-full max-w-7xl mx-auto;
+      }
+      /* Standardized z-index values */
+      .z-fab { @apply z-[60]; }        /* Floating Action Buttons */
+      .z-header { @apply z-[50]; }     /* Sticky Header/Navbar */
+      .z-dropdown { @apply z-[40]; }   /* Dropdown Menus */
+      .z-modal-backdrop { @apply z-[90]; } /* Modal backdrop */
+      .z-modal-content { @apply z-[100]; }  /* Modal content itself */
 
-      /* Utility classes for z-indexing common overlay elements */
-      .z-overlay-backdrop { /* For modal backdrops */
-        z-index: 99; 
-      }
-      .z-overlay-content { /* For modal content */
-        z-index: 100;
-      }
-      .z-sticky-nav { /* For sticky navigation */
-        z-index: 50;
-      }
-      .z-fab-button { /* For Floating Action Buttons like ScrollToTop */
-        z-index: 40;
-      }
-
-      /* Specific fixes if any global CSS is causing issues with Tailwind */
-      /* Example: html { box-sizing: border-box; } *, *::before, *::after { box-sizing: inherit; } */
-      /* Tailwind's preflight typically handles this, but explicit rules can be added if needed. */
     </style>
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
@@ -134,7 +142,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-event-background font-sans">
+<body class="bg-event-background font-sans text-event-text">
     <div id="root" class="h-full"></div>
     <script type="module" src="index.tsx"></script>
 <script type="module" src="/index.tsx"></script>

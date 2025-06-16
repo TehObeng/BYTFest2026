@@ -1,3 +1,4 @@
+
 import { HighlightData } from '../HighlightModal'; // HighlightData is used by festivalHighlightsData if moved here
 
 export interface GuestStar {
@@ -23,7 +24,7 @@ export const festivalHighlightsData: HighlightData[] = [
     description: "Artis nasional dan internasional siap menghentak panggung utama.", 
     icon: "🎤",
     detailedDescription: "Panggung utama BYTF 2026 akan bergetar dengan penampilan dari artis-artis papan atas nasional dan internasional. Nikmati kualitas suara dan tata cahaya kelas dunia yang akan membuat pengalaman konser Anda tak terlupakan. Jadwal lengkap dan line-up final akan diumumkan segera! Pastikan Anda tidak melewatkan penampilan idola Anda.",
-    modalImage: "/images/highlights/konser_modal.webp" // Assuming this path structure is intended to remain
+    modalImage: "/images/highlights/konser_modal.webp"
   },
   { 
     title: "Parade Budaya & Komunitas", 

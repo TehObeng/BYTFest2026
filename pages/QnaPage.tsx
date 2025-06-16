@@ -5,13 +5,13 @@ import CategorySelector from '../CategorySelector';
 import QnaDisplay from '../QnaDisplay';
 import { motion, Variants, Easing } from 'framer-motion';
 
-const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200"; // Adjusted font size, Added text-left
+const pageTitleStyle = "text-left text-3xl sm:text-4xl md:text-4xl font-bold text-event-text-heading mt-0 mb-10 pb-5 border-b-2 border-gray-200";
 
 const pageVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 } // Slight delay for children
   }
 };
 
@@ -46,6 +46,7 @@ const QnaPage: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={pageVariants}
+      className="space-y-8" // Add some spacing for content flow
     >
       <motion.h2 className={pageTitleStyle} variants={titleVariants}>Informasi & Pertanyaan Umum (Info & Q&A)</motion.h2>
       {categories.length > 0 && selectedCategory ? (
@@ -59,7 +60,7 @@ const QnaPage: React.FC = () => {
         </>
       ) : (
         <motion.p 
-          className="text-event-text-muted py-4 text-sm sm:text-base" // Adjusted font size
+          className="text-event-text-muted py-4 text-sm sm:text-base text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}

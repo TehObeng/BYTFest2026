@@ -1,15 +1,15 @@
 
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
-import { ticketData, TicketTier } from '../data/ticket-data'; // Import data and type
+import { ticketData, TicketTier } from '../data/ticket-data'; 
 
-const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
+const pageTitleStyle = "text-left text-3xl sm:text-4xl md:text-4xl font-bold text-event-text-heading mt-0 mb-10 pb-5 border-b-2 border-gray-200";
 
 const pageVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1, 
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 } 
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 } 
   }
 };
 
@@ -23,12 +23,13 @@ const titleVariants: Variants = {
 };
 
 const ticketCardVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      delay: i * 0.1,
+      delay: i * 0.08,
       duration: 0.45,
       ease: [0.22, 1, 0.36, 1] as Easing
     }
@@ -42,7 +43,7 @@ const TicketsPage: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={pageVariants}
-      className="space-y-8"
+      className="space-y-10"
     >
       <motion.h2 className={pageTitleStyle} variants={titleVariants}>
         Tiket BYTF 2026
@@ -51,7 +52,7 @@ const TicketsPage: React.FC = () => {
       <motion.p 
         className="text-sm sm:text-base text-event-text-muted mb-10 text-center"
         variants={titleVariants}
-        transition={{ delay: 0.15 }}
+        transition={{ delay: 0.1 }}
       >
         Amankan tiketmu sekarang untuk menjadi bagian dari kemeriahan Batam Youth & Tourism Festival 2026! 
         Pilih tiket yang paling sesuai dengan kebutuhanmu. Hari 1-4 GRATIS untuk area festival umum! Konser utama dan akses penuh pada Hari 5 & 6 memerlukan tiket berbayar.
@@ -65,40 +66,40 @@ const TicketsPage: React.FC = () => {
             variants={ticketCardVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             className={`
               bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease 
-              flex flex-col
-              ${ticket.isFeatured ? 'border-2 border-event-green ring-4 ring-event-green/20' : 'border border-gray-200'}
+              flex flex-col transform hover:-translate-y-1
+              ${ticket.isFeatured ? 'border-2 border-event-green ring-4 ring-event-green/20' : 'border border-gray-200/80'}
             `}
           >
             {ticket.isFeatured && (
-              <div className="bg-event-green text-white text-xs font-bold uppercase tracking-wider py-1.5 px-4 rounded-t-lg text-center">
+              <div className="bg-event-green text-white text-xs font-bold uppercase tracking-wider py-2 px-4 rounded-t-lg text-center">
                 Paling Populer
               </div>
             )}
             <div className="p-5 sm:p-6 flex-grow flex flex-col">
-              <h3 className="text-left text-xl lg:text-2xl font-bold text-event-blue mb-2">{ticket.name}</h3>
-              <div className="mb-4">
+              <h3 className="text-left text-xl lg:text-2xl font-bold text-event-blue mb-2.5 group-hover:text-event-blue-dark transition-colors">{ticket.name}</h3>
+              <div className="mb-5">
                 <span className={`text-2xl lg:text-3xl font-extrabold ${ticket.price === "GRATIS" ? "text-event-green" : "text-event-text-heading"}`}>
                   {ticket.price}
                 </span>
                 {ticket.originalPrice && (
-                  <span className="text-sm text-gray-400 line-through ml-2">{ticket.originalPrice}</span>
+                  <span className="text-sm text-gray-400 line-through ml-2.5">{ticket.originalPrice}</span>
                 )}
               </div>
               
-              <ul className="list-disc list-inside text-sm text-event-text-muted space-y-1.5 mb-6 flex-grow">
+              <ul className="list-disc list-inside text-sm text-event-text-muted space-y-2 mb-6 flex-grow">
                 {ticket.benefits.map((benefit, i) => (
                   <li key={i}>{benefit}</li>
                 ))}
               </ul>
 
               {ticket.note && (
-                <p className="text-xs text-red-600 font-semibold italic mb-3">{ticket.note}</p>
+                <p className="text-xs text-red-600 font-semibold italic mb-4">{ticket.note}</p>
               )}
 
-              <p className={`text-sm font-semibold mb-4 
+              <p className={`text-sm font-semibold mb-5 
                 ${ticket.availability === 'Tersedia' ? 'text-green-600' : 
                   ticket.availability === 'Segera Hadir' ? 'text-sky-600' : 
                   ticket.availability === 'Terbatas' ? 'text-orange-600' : 'text-red-600'}`}>
@@ -111,7 +112,7 @@ const TicketsPage: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`
-                    w-full mt-auto text-center font-semibold py-3 px-6 rounded-lg transition-colors duration-200 ease-custom-ease
+                    w-full mt-auto text-center font-semibold py-3 px-6 rounded-lg transition-all duration-200 ease-custom-ease active:scale-95
                     ${ticket.availability === 'Habis Terjual' || ticket.availability === 'Segera Hadir'
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       : 'bg-event-green text-white hover:bg-event-green-dark shadow-button'
@@ -133,17 +134,17 @@ const TicketsPage: React.FC = () => {
       </div>
 
       <motion.div 
-        className="mt-12 p-6 bg-event-blue-extralight rounded-xl shadow"
+        className="mt-12 p-6 bg-event-blue-extralight rounded-xl shadow-lg border border-event-blue-light/50"
         variants={titleVariants}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.2 }}
         >
-        <h4 className="text-lg font-semibold text-event-blue-dark mb-3 text-left">Informasi Penting Tiket:</h4>
-        <ul className="list-disc list-inside text-sm text-event-text-muted space-y-1">
-          <li>Tiket yang sudah dibeli tidak dapat di-refund, namun dapat dipindahtangankan (syarat & ketentuan berlaku).</li>
-          <li>Harga tiket belum termasuk pajak dan biaya platform (jika ada).</li>
+        <h4 className="text-lg sm:text-xl font-semibold text-event-blue-dark mb-3 text-left">Informasi Penting Tiket:</h4>
+        <ul className="list-disc list-inside text-sm text-event-text-muted space-y-1.5 leading-relaxed">
+          <li>Tiket yang sudah dibeli tidak dapat di-refund, namun dapat dipindahtangankan (syarat & ketentuan berlaku, akan diinfo lebih lanjut).</li>
+          <li>Harga tiket belum termasuk pajak dan biaya platform (jika ada, akan tertera saat pembelian).</li>
           <li>Anak di bawah usia 5 tahun gratis masuk ke area festival umum pada Hari 1-4 (tidak berlaku untuk area konser berbayar pada Hari 5 & 6, pendampingan orang tua wajib).</li>
-          <li>E-ticket akan dikirimkan ke email setelah pembayaran berhasil. Tunjukkan e-ticket saat penukaran dengan wristband di lokasi.</li>
-          <li>Untuk pertanyaan lebih lanjut seputar tiket, hubungi kami melalui halaman <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('nav-contact')?.click(); }} className="text-event-blue hover:underline">Kontak</a>.</li>
+          <li>E-ticket akan dikirimkan ke email Anda setelah pembayaran berhasil dikonfirmasi. Tunjukkan e-ticket (digital atau cetak) saat penukaran dengan wristband resmi di lokasi festival.</li>
+          <li>Untuk pertanyaan lebih lanjut seputar tiket, silakan hubungi kami melalui halaman <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('nav-contact')?.click(); }} className="text-event-blue hover:underline font-medium">Kontak</a> kami.</li>
         </ul>
       </motion.div>
     </motion.div>
