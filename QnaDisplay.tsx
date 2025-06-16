@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { QnaItem } from './data/qna-data';
+import { QnaItem } from './data/qna-data'; // Corrected import path
 import { motion, Variants, Easing, AnimatePresence } from 'framer-motion';
 
 interface QnaDisplayProps {
@@ -40,7 +40,6 @@ const answerVariants: Variants = {
 };
 
 const QnaDisplay: React.FC<QnaDisplayProps> = ({ items }) => {
-  const [hoveredItemIndex, setHoveredItemIndex] = useState<number | null>(null);
   const [pinnedIndices, setPinnedIndices] = useState<Set<number>>(new Set());
 
   if (!items || items.length === 0) {
@@ -63,8 +62,6 @@ const QnaDisplay: React.FC<QnaDisplayProps> = ({ items }) => {
     <div className="mt-2 space-y-4 sm:space-y-5"> {/* Adjusted space for mobile */}
       {items.map((item, index) => {
         const isPinned = pinnedIndices.has(index);
-        // Hover effect is removed as primary toggle mechanism due to button interaction
-        // const isHovered = hoveredItemIndex === index; 
         const isOpen = isPinned; // Now only pinned items are open by default
         const answerId = `qna-answer-${index}`;
 
@@ -77,8 +74,6 @@ const QnaDisplay: React.FC<QnaDisplayProps> = ({ items }) => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }} 
             variants={qnaItemVariants}
-            // onMouseEnter={() => setHoveredItemIndex(index)} // Removing hover to expand
-            // onMouseLeave={() => setHoveredItemIndex(null)} // Removing hover to expand
           >
             <button
               type="button"

@@ -122,7 +122,7 @@ const HomePage: React.FC = () => {
                  <a
                     href={news.link}
                     onClick={(e) => {
-                      if (news.link.startsWith('#nav-')) {
+                      if (news.link && news.link.startsWith('#nav-')) {
                         e.preventDefault();
                         const pageKey = news.link.split('nav-')[1];
                         const navButton = document.getElementById(`nav-${pageKey}`);
