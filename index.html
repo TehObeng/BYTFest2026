@@ -49,7 +49,7 @@
             transitionTimingFunction: {
              'custom-ease': 'cubic-bezier(0.4, 0, 0.2, 1)',
             },
-            keyframes: { // Added for potential simple CSS animations
+            keyframes: { 
               fadeInUp: {
                 '0%': { opacity: '0', transform: 'translateY(20px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
@@ -59,7 +59,7 @@
                 '100%': { opacity: '1'},
               }
             },
-            animation: { // Added for potential simple CSS animations
+            animation: { 
               fadeInUp: 'fadeInUp 0.5s ease-out forwards',
               fadeIn: 'fadeIn 0.5s ease-out forwards',
             }
@@ -67,6 +67,31 @@
         }
       }
     </script>
+    <style type="text/tailwindcss">
+      /* Custom CSS for potential overlaps or global styles if Tailwind isn't enough */
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Utility classes for z-indexing common overlay elements */
+      .z-overlay-backdrop { /* For modal backdrops */
+        z-index: 99; 
+      }
+      .z-overlay-content { /* For modal content */
+        z-index: 100;
+      }
+      .z-sticky-nav { /* For sticky navigation */
+        z-index: 50;
+      }
+      .z-fab-button { /* For Floating Action Buttons like ScrollToTop */
+        z-index: 40;
+      }
+
+      /* Specific fixes if any global CSS is causing issues with Tailwind */
+      /* Example: html { box-sizing: border-box; } *, *::before, *::after { box-sizing: inherit; } */
+      /* Tailwind's preflight typically handles this, but explicit rules can be added if needed. */
+    </style>
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
 {

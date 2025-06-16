@@ -1,62 +1,68 @@
 
 import { Sponsor } from '../SponsorLogoGrid';
 
-// Placeholder sponsor data previously in SponsorsPage.tsx
 export const mockSponsors: Sponsor[] = [
+  { 
+    name: "PT Telekomunikasi Selular (Telkomsel)", 
+    logoUrl: "/images/logosponsor/telkomsel.png", // Assume you have this logo
+    websiteUrl: "https://www.telkomsel.com/", 
+    tier: "Platinum",
+    explanation: "Telkomsel, sebagai perusahaan telekomunikasi digital terdepan di Indonesia, berkomitmen penuh untuk mendukung inovasi dan kreativitas anak bangsa. Melalui kemitraan dengan BYTF 2026, Telkomsel bertujuan memberdayakan generasi muda Batam dengan teknologi dan konektivitas terdepan, serta mendorong pertumbuhan ekosistem digital lokal. Kami bangga menjadi bagian dari festival yang merayakan semangat pemuda dan potensi pariwisata Batam."
+  },
+  { 
+    name: "Bank Mandiri", 
+    logoUrl: "/images/logosponsor/mandiri.png", // Assume you have this logo
+    websiteUrl: "https://www.bankmandiri.co.id/", 
+    tier: "Gold",
+    explanation: "Bank Mandiri hadir untuk negeri, mendukung pertumbuhan ekonomi dan kemandirian finansial masyarakat. Partisipasi kami dalam BYTF 2026 adalah wujud dukungan terhadap UMKM, talenta kreatif, dan sektor pariwisata di Batam. Kami percaya festival ini akan menjadi katalisator positif bagi kemajuan daerah."
+  },
+  { 
+    name: "Shopee Indonesia", 
+    logoUrl: "/images/logosponsor/shopee.png", // Assume you have this logo
+    websiteUrl: "https://shopee.co.id/", 
+    tier: "Gold",
+    explanation: "Shopee, platform e-commerce terkemuka di Asia Tenggara dan Taiwan, antusias mendukung BYTF 2026. Kami berkomitmen untuk memajukan ekonomi digital dan memberdayakan pengusaha lokal, termasuk para youthpreneur di Batam. Festival ini sejalan dengan misi kami untuk menciptakan dampak positif bagi komunitas."
+  },
   { 
     name: "Pertamina", 
     logoUrl: "/images/logosponsor/pertamina.png", 
     websiteUrl: "https://www.pertamina.com/", 
-    tier: "Platinum",
-    explanation: "PT Pertamina (Persero) adalah perusahaan energi nasional terkemuka Indonesia, berkomitmen untuk menyediakan energi yang berkelanjutan dan mendukung pertumbuhan ekonomi bangsa. Kontribusi Pertamina sangat penting untuk kesuksesan berbagai inisiatif nasional, termasuk acara-acara besar seperti BYTF 2026."
-  },
-  { 
-    name: "Beta Solutions", 
-    logoUrl: "/images/logosponsor/beta_solutions.png", 
-    websiteUrl: "#", 
-    tier: "Gold",
-    explanation: "Beta Solutions adalah inovator dalam teknologi perangkat lunak, menyediakan solusi canggih untuk bisnis modern. Dukungan mereka terhadap BYTF 2026 mencerminkan komitmen terhadap pengembangan talenta digital dan inovasi di Batam."
-  },
-  { 
-    name: "Gamma Inc.", 
-    logoUrl: "/images/logosponsor/gamma_inc.png", 
-    websiteUrl: "#", 
-    tier: "Gold",
-    explanation: "Gamma Inc. berfokus pada pengembangan produk konsumen berkualitas tinggi dengan desain yang inovatif. Kemitraan mereka dengan BYTF 2026 membantu menghadirkan pengalaman festival yang lebih kaya dan menarik bagi pengunjung."
-  },
-  { 
-    name: "Delta Co.", 
-    logoUrl: "/images/logosponsor/delta_co.png", 
-    websiteUrl: "#", 
     tier: "Silver",
-    explanation: "Delta Co. adalah penyedia layanan logistik terpercaya yang memastikan kelancaran operasional berbagai acara. Kontribusi mereka esensial dalam mendukung infrastruktur BYTF 2026."
+    explanation: "PT Pertamina (Persero) adalah perusahaan energi nasional yang berdedikasi untuk menyediakan energi bagi negeri. Dukungan kami untuk BYTF 2026 mencerminkan komitmen terhadap pengembangan generasi muda dan promosi potensi daerah, sejalan dengan semangat energi terbarukan dan inovasi."
   },
   { 
-    name: "Epsilon LLC", 
-    logoUrl: "/images/logosponsor/epsilon_llc.png", 
-    websiteUrl: "#", 
+    name: "Garuda Indonesia", 
+    logoUrl: "/images/logosponsor/garuda.png", // Assume you have this logo
+    websiteUrl: "https://www.garuda-indonesia.com/", 
     tier: "Silver",
-    explanation: "Epsilon LLC bergerak di bidang konsultasi bisnis dan manajemen, membantu perusahaan bertumbuh dan mencapai potensi penuh mereka. Mereka bangga mendukung semangat kewirausahaan di BYTF 2026."
+    explanation: "Garuda Indonesia, maskapai penerbangan nasional, dengan bangga mendukung BYTF 2026. Kami berkomitmen untuk mempromosikan pariwisata Indonesia, termasuk keindahan dan potensi Batam, kepada dunia. Kami berharap festival ini dapat meningkatkan kunjungan wisatawan dan memperkuat konektivitas."
   },
-  { 
-    name: "Zeta Group", 
-    logoUrl: "/images/logosponsor/zeta_group.png", 
-    websiteUrl: "#", 
+  {
+    name: "Pemko Batam",
+    logoUrl: "/images/logosponsor/pemko_batam.png", // Placeholder
+    websiteUrl: "https://www.batam.go.id/",
     tier: "Community Partner",
-    explanation: "Zeta Group adalah organisasi nirlaba yang aktif mendukung kegiatan komunitas dan pengembangan pemuda di Batam. Kolaborasi mereka memperkuat dampak sosial BYTF 2026."
+    explanation: "Pemerintah Kota Batam mendukung penuh penyelenggaraan BYTF 2026 sebagai upaya strategis untuk memajukan sektor pariwisata, ekonomi kreatif, dan pemberdayaan pemuda di Kota Batam."
   },
   { 
-    name: "Eta Foundation", 
-    logoUrl: "/images/logosponsor/eta_foundation.png", 
-    websiteUrl: "#", 
+    name: "Wonderful Indonesia", 
+    logoUrl: "/images/logosponsor/wonderful_indonesia.png", // Placeholder
+    websiteUrl: "https://www.indonesia.travel/", 
     tier: "Community Partner",
-    explanation: "Eta Foundation berdedikasi untuk memajukan pendidikan dan seni budaya. Keterlibatan mereka di BYTF 2026 membantu menginspirasi generasi muda melalui program-program kreatif."
+    explanation: "Wonderful Indonesia adalah brand pariwisata nasional yang mempromosikan keindahan dan keragaman Indonesia. Kami mendukung BYTF 2026 sebagai bagian dari upaya mengenalkan Batam sebagai destinasi wisata unggulan."
   },
   { 
-    name: "Theta Ltd.", 
-    logoUrl: "/images/logosponsor/theta_ltd.png", 
+    name: "Radio Batam FM", 
+    logoUrl: "/images/logosponsor/batam_fm.png", // Placeholder
     websiteUrl: "#", 
     tier: "Media Partner",
-    explanation: "Theta Ltd. adalah platform media terkemuka yang menyajikan berita dan hiburan terkini. Sebagai mitra media, mereka membantu menyebarkan kemeriahan BYTF 2026 ke audiens yang lebih luas."
+    explanation: "Radio Batam FM adalah stasiun radio lokal terkemuka yang menjadi corong informasi dan hiburan bagi masyarakat Batam. Kami bangga menjadi mitra media BYTF 2026, menyebarkan kemeriahan festival ke seluruh pendengar."
+  },
+  { 
+    name: "Batam Pos", 
+    logoUrl: "/images/logosponsor/batam_pos.png", // Placeholder
+    websiteUrl: "#", 
+    tier: "Media Partner",
+    explanation: "Batam Pos, sebagai harian terkemuka di Kepulauan Riau, berkomitmen untuk menyajikan berita akurat dan mendalam. Kami mendukung BYTF 2026 dengan liputan komprehensif untuk menjangkau pembaca luas."
   },
 ];
