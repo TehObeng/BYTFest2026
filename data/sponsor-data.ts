@@ -2,7 +2,7 @@ import { Sponsor } from '../SponsorLogoGrid';
 
 // Placeholder sponsor data previously in SponsorsPage.tsx
 export const mockSponsors: Sponsor[] = [
-  { name: "Acme Corp", logoUrl: "/images/logosponsor/acme_corp.png", websiteUrl: "#", tier: "Platinum" },
+  { name: "Pertamina", logoUrl: "/images/logosponsor/Pertamina.png", websiteUrl: "https://www.pertamina.com/", tier: "Platinum" },
   { name: "Beta Solutions", logoUrl: "/images/logosponsor/beta_solutions.png", websiteUrl: "#", tier: "Gold" },
   { name: "Gamma Inc.", logoUrl: "/images/logosponsor/gamma_inc.png", websiteUrl: "#", tier: "Gold" },
   { name: "Delta Co.", logoUrl: "/images/logosponsor/delta_co.png", websiteUrl: "#", tier: "Silver" },
