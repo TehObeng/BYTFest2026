@@ -1,13 +1,13 @@
-import { Sponsor } from './SponsorLogoGrid';
+import { Sponsor } from '../SponsorLogoGrid';
 
 // Placeholder sponsor data previously in SponsorsPage.tsx
 export const mockSponsors: Sponsor[] = [
-  { name: "Acme Corp", logoUrl: "https://via.placeholder.com/200x120.png?text=Acme+Corp", websiteUrl: "#", tier: "Platinum" },
-  { name: "Beta Solutions", logoUrl: "https://via.placeholder.com/200x120.png?text=Beta+Solutions", websiteUrl: "#", tier: "Gold" },
-  { name: "Gamma Inc.", logoUrl: "https://via.placeholder.com/200x120.png?text=Gamma+Inc.", websiteUrl: "#", tier: "Gold" },
-  { name: "Delta Co.", logoUrl: "https://via.placeholder.com/200x120.png?text=Delta+Co.", websiteUrl: "#", tier: "Silver" },
-  { name: "Epsilon LLC", logoUrl: "https://via.placeholder.com/200x120.png?text=Epsilon+LLC", websiteUrl: "#", tier: "Silver" },
-  { name: "Zeta Group", logoUrl: "https://via.placeholder.com/200x120.png?text=Zeta+Group", websiteUrl: "#", tier: "Community Partner" },
-  { name: "Eta Foundation", logoUrl: "https://via.placeholder.com/200x120.png?text=Eta+Foundation", websiteUrl: "#", tier: "Community Partner" },
-  { name: "Theta Ltd.", logoUrl: "https://via.placeholder.com/200x120.png?text=Theta+Ltd.", websiteUrl: "#", tier: "Media Partner" },
+  { name: "Acme Corp", logoUrl: "/images/logosponsor/acme_corp.png", websiteUrl: "#", tier: "Platinum" },
+  { name: "Beta Solutions", logoUrl: "/images/logosponsor/beta_solutions.png", websiteUrl: "#", tier: "Gold" },
+  { name: "Gamma Inc.", logoUrl: "/images/logosponsor/gamma_inc.png", websiteUrl: "#", tier: "Gold" },
+  { name: "Delta Co.", logoUrl: "/images/logosponsor/delta_co.png", websiteUrl: "#", tier: "Silver" },
+  { name: "Epsilon LLC", logoUrl: "/images/logosponsor/epsilon_llc.png", websiteUrl: "#", tier: "Silver" },
+  { name: "Zeta Group", logoUrl: "/images/logosponsor/zeta_group.png", websiteUrl: "#", tier: "Community Partner" },
+  { name: "Eta Foundation", logoUrl: "/images/logosponsor/eta_foundation.png", websiteUrl: "#", tier: "Community Partner" },
+  { name: "Theta Ltd.", logoUrl: "/images/logosponsor/theta_ltd.png", websiteUrl: "#", tier: "Media Partner" },
 ];

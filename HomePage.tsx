@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import CountdownTimer from './CountdownTimer'; // Import CountdownTimer
 import HighlightModal, { HighlightData } from './HighlightModal'; // Import HighlightModal and its type
-import { guestStars, latestNewsData, festivalHighlightsData } from './home-data'; // Import data
+import { guestStars, latestNewsData, festivalHighlightsData } from './data/home-data'; // Import data
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -160,7 +160,7 @@ const HomePage: React.FC = () => {
                 loading="lazy"
                 onError={(e) => {
                   (e.target as HTMLImageElement).onerror = null; 
-                  (e.target as HTMLImageElement).src = "/images/placeholder-artist.webp";
+                  (e.target as HTMLImageElement).src = "/images/artist/placeholder-artist.webp";
                 }}
               />
               <div className="p-4 sm:p-5 flex-grow flex flex-col">

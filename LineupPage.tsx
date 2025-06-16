@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
-import { lineupData, Artist } from './lineup-data'; // Import data and type
+import { lineupData, Artist } from './data/lineup-data'; // Import data and type
 
 const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
 const sectionTitleStyle = "text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-5";
@@ -85,7 +85,7 @@ const LineupPage: React.FC = () => {
                 loading="lazy"
                 onError={(e) => {
                   (e.target as HTMLImageElement).onerror = null; 
-                  (e.target as HTMLImageElement).src = "/images/placeholder-artist.webp"; // Fallback placeholder
+                  (e.target as HTMLImageElement).src = "/images/artist/placeholder-artist.webp"; // Fallback placeholder
                 }}
               />
               <div className="p-4 sm:p-5 flex-grow flex flex-col">

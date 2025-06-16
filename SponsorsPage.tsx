@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import SponsorLogoGrid from './SponsorLogoGrid'; // Import the new component
-import { mockSponsors } from './sponsor-data'; // Import mockSponsors data
+import { mockSponsors } from './data/sponsor-data'; // Import mockSponsors data
 
 const pageTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue"; // Adjusted font size, Added text-left
 const sectionTitleStyle = "text-left text-lg sm:text-xl md:text-2xl font-semibold text-event-blue-dark mt-8 mb-4"; // Adjusted font size, Added text-left
