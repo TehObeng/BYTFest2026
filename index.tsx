@@ -4,17 +4,17 @@ import { Page } from './types'; // Import Page type
 import { motion, AnimatePresence } from 'framer-motion'; // Import Framer Motion
 
 import Navbar from './Navbar'; // Import Navbar
-import HomePage from './HomePage'; // Import HomePage
-import AboutPage from './AboutPage'; // Import AboutPage
-import QnaPage from './QnaPage'; // Import QnaPage
-import SchedulePage from './SchedulePage'; // Import SchedulePage
-import SponsorsPage from './SponsorsPage'; // Import SponsorsPage
-import ContactPage from './ContactPage'; // Import ContactPage
+import HomePage from './pages/HomePage'; // Import HomePage
+import AboutPage from './pages/AboutPage'; // Import AboutPage
+import QnaPage from './pages/QnaPage'; // Import QnaPage
+import SchedulePage from './pages/SchedulePage'; // Import SchedulePage
+import SponsorsPage from './pages/SponsorsPage'; // Import SponsorsPage
+import ContactPage from './pages/ContactPage'; // Import ContactPage
 import ScrollToTopButton from './ScrollToTopButton'; // Import ScrollToTopButton
-import LineupPage from './LineupPage'; // Import LineupPage
-import TicketsPage from './TicketsPage'; // Import TicketsPage
-import GalleryPage from './GalleryPage'; // Import GalleryPage
-import VenueMapPage from './VenueMapPage'; // Import VenueMapPage
+import LineupPage from './pages/LineupPage'; // Import LineupPage
+import TicketsPage from './pages/TicketsPage'; // Import TicketsPage
+import GalleryPage from './pages/GalleryPage'; // Import GalleryPage
+import VenueMapPage from './pages/VenueMapPage'; // Import VenueMapPage
 
 const getPageTitle = (pageKey: Page): string => {
   const baseTitle = "BYTF 2026";

@@ -1,92 +1,96 @@
 
-export interface Artist {
+export interface TicketTier {
   id: string;
   name: string;
-  genre: string;
-  description: string;
-  imagePath: string;
-  socialLink?: string;
-  day?: string; // e.g., "Hari 1", "Hari 2"
-  type: string; // e.g., "Idol Group", "Band Pop", "DJ"
+  price: string;
+  originalPrice?: string; // For strikethrough effect if discounted
+  benefits: string[];
+  availability: 'Tersedia' | 'Segera Hadir' | 'Terbatas' | 'Habis Terjual';
+  purchaseLink: string;
+  isFeatured?: boolean;
+  note?: string;
 }
 
-export const lineupData: Artist[] = [
+export const ticketData: TicketTier[] = [
   {
-    id: "jkt48",
-    name: "JKT48",
-    genre: "Idol Group",
-    description: "Penampilan penuh semangat dari idol group JKT48 akan memeriahkan panggung utama BYTF 2026. Jangan lewatkan koreografi enerjik dan lagu-lagu hits mereka!",
-    imagePath: "/images/artist/jkt48.webp",
-    socialLink: "https://jkt48.com/",
-    day: "Hari 5",
-    type: "Idol Group"
+    id: "earlybird-daily",
+    name: "Early Bird - Tiket Harian (Pilihan Hari 5 atau 6)",
+    price: "Rp 250.000",
+    originalPrice: "Rp 300.000",
+    benefits: [
+      "Akses ke area konser utama (1 hari pilihan)",
+      "Akses ke semua zona festival umum",
+      "Kesempatan melihat semua bintang tamu di hari tersebut"
+    ],
+    availability: "Terbatas",
+    purchaseLink: "https://google.com", // Placeholder
+    isFeatured: true,
+    note: "Harga spesial, kuota sangat terbatas!"
   },
   {
-    id: "hivi",
-    name: "HIVI!",
-    genre: "Pop Ceria",
-    description: "HIVI! siap membawa keceriaan dengan lagu-lagu pop yang easy listening dan lirik yang relate dengan anak muda. Bernyanyi bersama HIVI! di BYTF 2026!",
-    imagePath: "/images/artist/hivi.webp",
-    socialLink: "https://www.instagram.com/sayhivi",
-    day: "Hari 6",
-    type: "Band Pop"
+    id: "normal-daily",
+    name: "Tiket Normal Harian (Pilihan Hari 5 atau 6)",
+    price: "Rp 300.000",
+    benefits: [
+      "Akses ke area konser utama (1 hari pilihan)",
+      "Akses ke semua zona festival umum",
+    ],
+    availability: "Segera Hadir",
+    purchaseLink: "https://google.com", // Placeholder
   },
   {
-    id: "juicy-luicy",
-    name: "Juicy Luicy",
-    genre: "Pop Puitis",
-    description: "Hanyutkan perasaanmu dengan melodi sendu dan lirik puitis dari Juicy Luicy. Sebuah pengalaman musik yang mendalam menantimu.",
-    imagePath: "/images/artist/juicy-luicy.webp",
-    socialLink: "https://www.instagram.com/juicyluicyband",
-    day: "Hari 5",
-    type: "Band Pop Puitis"
+    id: "earlybird-two-day-pass",
+    name: "Early Bird - Tiket Terusan (Hari 5 & 6)",
+    price: "Rp 450.000",
+    originalPrice: "Rp 600.000", // (2x Regular Daily Price)
+    benefits: [
+      "Akses ke area konser utama untuk Hari 5 DAN Hari 6",
+      "Akses ke semua zona festival umum selama 2 hari",
+      "Merchandise eksklusif (terbatas untuk pembeli awal)",
+      "Hemat lebih banyak!"
+    ],
+    availability: "Terbatas", // Changed from Segera Hadir
+    purchaseLink: "https://google.com", // Placeholder
+    isFeatured: true,
   },
   {
-    id: "eka-gustiwana",
-    name: "Eka Gustiwana",
-    genre: "DJ / Produser Musik Elektronik",
-    description: "Saksikan kejeniusan Eka Gustiwana dalam meracik musik elektronik yang unik dan aransemen speech composing yang viral. Siap-siap untuk berdansa!",
-    imagePath: "/images/artist/eka-gustiwana.webp",
-    socialLink: "https://www.instagram.com/ekagustiwana",
-    day: "Hari 6",
-    type: "DJ / Produser"
+    id: "regular-two-day-pass",
+    name: "Regular - Tiket Terusan (Hari 5 & 6)",
+    price: "Rp 400.000", // As requested, though unusual pricing
+    benefits: [
+      "Akses ke area konser utama untuk Hari 5 DAN Hari 6",
+      "Akses ke semua zona festival umum selama 2 hari",
+      "Pilihan lebih ekonomis untuk akses 2 hari."
+    ],
+    availability: "Segera Hadir",
+    purchaseLink: "https://google.com", // Placeholder
+    note: "Penawaran spesial untuk akses dua hari konser!"
   },
   {
-    id: "tulus",
-    name: "Tulus",
-    genre: "Pop / Jazz",
-    description: "Suara merdu dan lagu-lagu penuh makna dari Tulus akan menjadi salah satu highlight di BYTF 2026. (Placeholder - Artist belum dikonfirmasi)",
-    imagePath: "/images/artist/placeholder-artist2.webp", // Placeholder image
-    socialLink: "https://www.instagram.com/tulusm",
-    day: "Hari 5",
-    type: "Penyanyi Solo Pop"
+    id: "vip-access",
+    name: "VIP Access Pass (Per Hari)",
+    price: "Rp 1.000.000",
+    benefits: [
+      "Akses ke area VIP dekat panggung",
+      "Fast lane entry",
+      "Akses ke VIP Lounge (makanan & minuman ringan)",
+      "Merchandise eksklusif BYTF 2026",
+      "Toilet khusus VIP"
+    ],
+    availability: "Terbatas",
+    purchaseLink: "https://google.com", // Placeholder
+    note: "Pengalaman festival paling premium! Kuota sangat terbatas."
   },
   {
-    id: "ndx-aka",
-    name: "NDX A.K.A.",
-    genre: "Dangdut Hip-Hop",
-    description: "Ambyar bareng NDX A.K.A! Perpaduan dangdut dan hip-hop yang akan membuat semua bergoyang. (Placeholder - Artist belum dikonfirmasi)",
-    imagePath: "/images/artist/placeholder-artist3.webp", // Placeholder image
-    socialLink: "https://www.instagram.com/ndxakatv",
-    day: "Hari 6",
-    type: "Grup Dangdut Hip-Hop"
-  },
-  {
-    id: "local-band-1",
-    name: "Senandung Batam Collective",
-    genre: "Musik Tradisional Kontemporer",
-    description: "Nikmati alunan musik khas Batam yang dibawakan dengan aransemen modern oleh talenta-talenta lokal berbakat.",
-    imagePath: "/images/artist/placeholder-local1.webp", // Placeholder image
-    day: "Hari 2",
-    type: "Band Lokal"
-  },
-  {
-    id: "local-dj-1",
-    name: "DJ Beatflow",
-    genre: "EDM / House",
-    description: "DJ lokal yang siap memanaskan suasana dengan set EDM dan House musik yang menghentak.",
-    imagePath: "/images/artist/placeholder-local2.webp", // Placeholder image
-    day: "Hari 3",
-    type: "DJ Lokal"
+    id: "free-days",
+    name: "Akses Gratis Festival Umum (Hari 1 - 4)",
+    price: "GRATIS",
+    benefits: [
+      "Akses ke semua zona festival umum (pameran UMKM, workshop umum, pertunjukan komunitas, dll) selama Hari 1 hingga Hari 4.",
+      "Menikmati parade budaya dan berbagai aktivitas non-konser di hari-hari tersebut."
+    ],
+    availability: "Tersedia",
+    purchaseLink: "#", // No link needed
+    note: "Nikmati kemeriahan awal festival tanpa biaya! Tiket berbayar diperlukan untuk akses ke festival pada Hari ke-5 dan Hari ke-6."
   }
 ];
