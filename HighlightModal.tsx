@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence, Variants, Easing } from 'framer-motion';
 
@@ -75,7 +76,7 @@ const HighlightModal: React.FC<HighlightModalProps> = ({ isOpen, onClose, highli
             <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-200">
               <div className="flex items-center gap-3">
                 <span className="text-2xl sm:text-3xl">{highlight.icon}</span>
-                <h3 id="highlight-modal-title" className="text-lg sm:text-xl font-semibold text-event-blue">
+                <h3 id="highlight-modal-title" className="text-left text-lg sm:text-xl font-semibold text-event-blue">
                   {highlight.title}
                 </h3>
               </div>
@@ -99,7 +100,7 @@ const HighlightModal: React.FC<HighlightModalProps> = ({ isOpen, onClose, highli
                   className="w-full h-48 object-cover rounded-md mb-4" 
                 />
               )}
-              <p className="text-sm sm:text-base text-event-text-muted leading-relaxed whitespace-pre-line">
+              <p className="text-left text-sm sm:text-base text-event-text-muted leading-relaxed whitespace-pre-line">
                 {highlight.detailedDescription}
               </p>
             </div>

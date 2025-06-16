@@ -3,7 +3,7 @@ import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import { ticketData, TicketTier } from './ticket-data'; // Import data and type
 
-const pageTitleStyle = "text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
+const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
 
 const pageVariants: Variants = {
   hidden: { opacity: 0 },
@@ -78,7 +78,7 @@ const TicketsPage: React.FC = () => {
               </div>
             )}
             <div className="p-5 sm:p-6 flex-grow flex flex-col">
-              <h3 className="text-xl lg:text-2xl font-bold text-event-blue mb-2">{ticket.name}</h3>
+              <h3 className="text-left text-xl lg:text-2xl font-bold text-event-blue mb-2">{ticket.name}</h3>
               <div className="mb-4">
                 <span className={`text-2xl lg:text-3xl font-extrabold ${ticket.price === "GRATIS" ? "text-event-green" : "text-event-text-heading"}`}>
                   {ticket.price}
@@ -137,7 +137,7 @@ const TicketsPage: React.FC = () => {
         variants={titleVariants}
         transition={{ delay: 0.3 }}
         >
-        <h4 className="text-lg font-semibold text-event-blue-dark mb-3">Informasi Penting Tiket:</h4>
+        <h4 className="text-lg font-semibold text-event-blue-dark mb-3 text-left">Informasi Penting Tiket:</h4>
         <ul className="list-disc list-inside text-sm text-event-text-muted space-y-1">
           <li>Tiket yang sudah dibeli tidak dapat di-refund, namun dapat dipindahtangankan (syarat & ketentuan berlaku).</li>
           <li>Harga tiket belum termasuk pajak dan biaya platform (jika ada).</li>

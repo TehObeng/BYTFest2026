@@ -1,13 +1,14 @@
+
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import SponsorLogoGrid from './SponsorLogoGrid'; // Import the new component
 import { mockSponsors } from './sponsor-data'; // Import mockSponsors data
 
-const pageTitleStyle = "text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue"; // Adjusted font size
-const sectionTitleStyle = "text-lg sm:text-xl md:text-2xl font-semibold text-event-blue-dark mt-8 mb-4"; // Adjusted font size
+const pageTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue"; // Adjusted font size, Added text-left
+const sectionTitleStyle = "text-left text-lg sm:text-xl md:text-2xl font-semibold text-event-blue-dark mt-8 mb-4"; // Adjusted font size, Added text-left
 const paragraphStyle = "mb-4 leading-relaxed text-gray-700 text-justify text-sm sm:text-base"; // Adjusted font size
 const listStyle = "list-disc pl-5 mb-4 text-gray-700 space-y-2 text-sm sm:text-base"; // Adjusted font size
-const subSectionTitleStyle = "text-base sm:text-lg font-semibold text-event-blue-dark mt-0 mb-2"; // Adjusted font size
+const subSectionTitleStyle = "text-left text-base sm:text-lg font-semibold text-event-blue-dark mt-0 mb-2"; // Adjusted font size, Added text-left
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 20 },

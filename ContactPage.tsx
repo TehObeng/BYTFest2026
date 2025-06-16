@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 
-const pageTitleStyle = "text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue"; // Adjusted font size
+const pageTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue"; // Adjusted font size, Added text-left
 const paragraphStyle = "mb-4 leading-relaxed text-gray-700 text-justify text-sm sm:text-base"; // Adjusted font size
 const contactSectionStyle = "p-4 sm:p-5 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition-shadow"; // Adjusted padding
-const contactTitleStyle = "text-base sm:text-lg font-semibold text-event-blue-dark mt-0 mb-2 sm:mb-3"; // Adjusted font size & margin
+const contactTitleStyle = "text-left text-base sm:text-lg font-semibold text-event-blue-dark mt-0 mb-2 sm:mb-3"; // Adjusted font size & margin, Added text-left
 const contactListStyle = "list-none pl-0 space-y-1 text-xs sm:text-sm text-gray-700"; // Adjusted font size
 const emailLinkStyle = "text-sky-600 hover:text-sky-800 hover:underline transition-colors";
 const socialLinkStyle = "text-sky-600 hover:text-sky-800 hover:underline transition-colors font-medium";

@@ -5,7 +5,7 @@ import CategorySelector from './CategorySelector';
 import QnaDisplay from './QnaDisplay';
 import { motion, Variants, Easing } from 'framer-motion';
 
-const pageTitleStyle = "text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200"; // Adjusted font size
+const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200"; // Adjusted font size, Added text-left
 
 const pageVariants: Variants = {
   hidden: { opacity: 0 },

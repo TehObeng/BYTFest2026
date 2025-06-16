@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { QnaItem } from './qna-data';
 import { motion, Variants, Easing, AnimatePresence } from 'framer-motion';
@@ -105,7 +106,7 @@ const QnaDisplay: React.FC<QnaDisplayProps> = ({ items }) => {
                   variants={answerVariants}
                   className="overflow-hidden border-t border-gray-200" 
                 >
-                  <p className="text-event-text-muted text-sm md:text-base whitespace-pre-wrap pt-2"> {/* Adjusted font size (A) */}
+                  <p className="text-left text-event-text-muted text-sm md:text-base whitespace-pre-wrap pt-2"> {/* Adjusted font size (A), Added text-left */}
                     {item.a}
                   </p>
                 </motion.div>

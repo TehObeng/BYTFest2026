@@ -2,8 +2,8 @@
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 
-const pageTitleStyle = "text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200"; // Adjusted font size
-const sectionTitleStyle = "text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-5"; // Adjusted font size
+const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200"; // Adjusted font size, Added text-left
+const sectionTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-5"; // Adjusted font size, Added text-left
 const paragraphStyle = "mb-5 leading-relaxed text-event-text-muted text-sm sm:text-base md:text-lg text-justify"; // Adjusted font size (base is sm)
 const listStyle = "list-disc pl-6 mb-5 text-event-text-muted space-y-2.5 text-sm sm:text-base md:text-lg";  // Adjusted font size (base is sm)
 

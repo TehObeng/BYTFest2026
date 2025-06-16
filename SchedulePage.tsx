@@ -2,10 +2,10 @@
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 
-const pageTitleStyle = "text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue";
-const sectionTitleStyle = "text-lg sm:text-xl md:text-2xl font-semibold text-event-blue-dark mt-8 mb-4";
+const pageTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-bold text-event-blue mt-0 mb-6 pb-3 border-b-2 border-event-blue";
+const sectionTitleStyle = "text-left text-lg sm:text-xl md:text-2xl font-semibold text-event-blue-dark mt-8 mb-4";
 const paragraphStyle = "mb-4 leading-relaxed text-gray-700 text-justify text-sm sm:text-base";
-const dayTitleStyle = "text-lg sm:text-xl font-semibold text-event-blue-dark mt-0 mb-3";
+const dayTitleStyle = "text-left text-lg sm:text-xl font-semibold text-event-blue-dark mt-0 mb-3";
 const activityListStyle = "list-disc pl-5 space-y-2.5 text-gray-600 text-sm sm:text-base"; // Increased space-y
 
 const sectionVariants: Variants = {

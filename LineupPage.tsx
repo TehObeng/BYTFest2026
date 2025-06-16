@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import { lineupData, Artist } from './lineup-data'; // Import data and type
 
-const pageTitleStyle = "text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
+const pageTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-0 mb-8 pb-4 border-b-2 border-gray-200";
 const sectionTitleStyle = "text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-5";
 
 const pageVariants: Variants = {
@@ -88,7 +89,7 @@ const LineupPage: React.FC = () => {
                 }}
               />
               <div className="p-4 sm:p-5 flex-grow flex flex-col">
-                <h3 className="text-xl sm:text-2xl font-bold text-event-blue mb-1 group-hover:text-event-blue-dark transition-colors">{artist.name}</h3>
+                <h3 className="text-left text-xl sm:text-2xl font-bold text-event-blue mb-1 group-hover:text-event-blue-dark transition-colors">{artist.name}</h3>
                 <p className="text-xs sm:text-sm font-semibold text-event-green mb-2">{artist.type} {artist.day && `(${artist.day})`}</p>
                 <p className="text-sm text-event-text-muted mb-4 flex-grow">{artist.description}</p>
                 {artist.socialLink && (
