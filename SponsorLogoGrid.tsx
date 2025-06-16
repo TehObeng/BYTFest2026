@@ -12,6 +12,7 @@ export interface Sponsor {
 interface SponsorLogoGridProps {
   sponsors: Sponsor[];
   title?: string;
+  customGridClasses?: string; // New prop for custom grid classes
 }
 
 const gridContainerVariants: Variants = {
@@ -79,12 +80,12 @@ const SponsorImage: React.FC<{ sponsor: Sponsor }> = ({ sponsor }) => {
   );
 };
 
-const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title }) => {
+const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title, customGridClasses }) => {
   if (!sponsors || sponsors.length === 0) {
     return (
       <section className="mt-8 sm:mt-10 mb-6 sm:mb-8">
          {title && <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-event-text-heading mb-6 sm:mb-8 text-center">{title}</h3>}
-        <p className="text-center text-event-text-muted">Sponsor akan segera diumumkan.</p>
+        <p className="text-center text-event-text-muted">Sponsor akan segera diumumkan untuk kategori ini.</p>
       </section>
     );
   }
@@ -93,7 +94,7 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title }) =>
     <section className="mt-8 sm:mt-10 mb-6 sm:mb-8">
       {title && <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-event-text-heading mb-6 sm:mb-8 text-center">{title}</h3>}
       <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 items-center"
+        className={customGridClasses || "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 items-center"}
         variants={gridContainerVariants}
         initial="hidden"
         whileInView="visible"
@@ -101,7 +102,7 @@ const SponsorLogoGrid: React.FC<SponsorLogoGridProps> = ({ sponsors, title }) =>
       >
         {sponsors.map((sponsor, index) => (
           <motion.div
-            key={index} // Using index as key; if sponsors can be reordered/changed, a unique sponsor.id would be better.
+            key={sponsor.name + index} // Using name + index for potentially non-unique names, ensure unique keys
             variants={logoItemVariants}
             className="p-2 sm:p-3 bg-white rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:scale-105"
           >
