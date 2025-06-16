@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id" style="scroll-behavior: smooth;">
 <head>
@@ -8,25 +9,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Tailwind CSS is now imported via src/index.css and processed by Vite -->
-    <!-- Importmap is no longer needed; Vite handles module resolution -->
+    <!-- Vite handles module resolution; importmap is not needed. -->
 <script type="importmap">
 {
   "imports": {
     "vite": "https://esm.sh/vite@^6.3.5",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^4.5.2",
+    "path": "https://esm.sh/path@^0.12.7",
     "react": "https://esm.sh/react@^19.1.0",
     "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
     "framer-motion": "https://esm.sh/framer-motion@^12.18.1",
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "path": "https://esm.sh/path@^0.12.7"
+    "react/": "https://esm.sh/react@^19.1.0/"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-event-background font-sans">
     <div id="root" class="h-full"></div>
     <script type="module" src="/src/index.tsx"></script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
