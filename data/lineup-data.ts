@@ -16,7 +16,7 @@ export const lineupData: Artist[] = [
     name: "JKT48",
     genre: "Idol Group",
     description: "Penampilan penuh semangat dari idol group JKT48 akan memeriahkan panggung utama BYTF 2026. Jangan lewatkan koreografi enerjik dan lagu-lagu hits mereka!",
-    imagePath: "/images/artist/jkt48.webp",
+    imagePath: "/images/artist/jkt48.jpg",
     socialLink: "https://jkt48.com/",
     day: "Hari 5",
     type: "Idol Group"
@@ -26,7 +26,7 @@ export const lineupData: Artist[] = [
     name: "HIVI!",
     genre: "Pop Ceria",
     description: "HIVI! siap membawa keceriaan dengan lagu-lagu pop yang easy listening dan lirik yang relate dengan anak muda. Bernyanyi bersama HIVI! di BYTF 2026!",
-    imagePath: "/images/artist/hivi.webp",
+    imagePath: "/images/artist/hivi.jpg",
     socialLink: "https://www.instagram.com/sayhivi",
     day: "Hari 6",
     type: "Band Pop"
@@ -36,7 +36,7 @@ export const lineupData: Artist[] = [
     name: "Juicy Luicy",
     genre: "Pop Puitis",
     description: "Hanyutkan perasaanmu dengan melodi sendu dan lirik puitis dari Juicy Luicy. Sebuah pengalaman musik yang mendalam menantimu.",
-    imagePath: "/images/artist/juicy-luicy.webp",
+    imagePath: "/images/artist/juicy.jpg",
     socialLink: "https://www.instagram.com/juicyluicyband",
     day: "Hari 5",
     type: "Band Pop Puitis"
@@ -46,7 +46,7 @@ export const lineupData: Artist[] = [
     name: "Eka Gustiwana",
     genre: "DJ / Produser Musik Elektronik",
     description: "Saksikan kejeniusan Eka Gustiwana dalam meracik musik elektronik yang unik dan aransemen speech composing yang viral. Siap-siap untuk berdansa!",
-    imagePath: "/images/artist/eka-gustiwana.webp",
+    imagePath: "/images/artist/eka.jpg",
     socialLink: "https://www.instagram.com/ekagustiwana",
     day: "Hari 6",
     type: "DJ / Produser"
