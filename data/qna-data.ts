@@ -28,7 +28,7 @@ export const qnaData: QnaData = {
   "Pemerintah / Instansi": [
     { q: "Apa manfaat festival ini bagi pemerintah daerah?", a: "Meningkatkan pariwisata, ekonomi kreatif, promosi budaya lokal, dan mendorong keterlibatan pemuda lintas komunitas." },
     { q: "Apakah festival ini mendukung Hari Lahir Pancasila?", a: "Ya. Hari ke-4 mengangkat tema “Semangat Pancasila dan Toleransi Pemuda”." },
-    { q: "Siapa penyelenggara resmi festival ini?", a: "Diselenggarakan oleh Event Organizer legal, bekerja sama dengan komunitas pemuda, dan didukung Dinas Pariwisata serta instansi terkait." },
+    { q: "Siapa penyelenggara resmi festival ini?", a: "Diselenggarakan oleh Event Phoenix Event Batam, bekerja sama dengan komunitas pemuda, dan didukung Dinas Pariwisata serta instansi terkait." },
     { q: "Apakah panitia memiliki izin resmi?", a: "Ya. Seluruh dokumen izin dari kepolisian, pemkot, Dinas Pariwisata, dan Satpol PP disiapkan H-30." },
     { q: "Apakah sekolah/kampus ikut terlibat?", a: "Ya. Diundang untuk parade budaya, lomba, zona edukasi, dan relawan festival." },
     { q: "Apakah kegiatan ini inklusif terhadap semua agama dan suku?", a: "Sangat. Ada Zona Toleransi yang memperkenalkan tempat ibadah dan budaya lintas keyakinan di Batam." },

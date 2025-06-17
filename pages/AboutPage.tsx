@@ -129,7 +129,7 @@ const AboutPage: React.FC = () => (
     
     <motion.section variants={sectionVariants}>
       <motion.h3 className={sectionTitleStyle} variants={itemVariants}>Di Balik Layar: Tim Profesional & Penuh Dedikasi</motion.h3>
-      <motion.p className={paragraphStyle} variants={itemVariants}>BYTF 2026 diselenggarakan oleh <strong className="text-event-blue-dark font-semibold">[Nama Event Organizer Profesional Anda - Placeholder]</strong>, sebuah tim yang terdiri dari para profesional berpengalaman, kreatif, dan penuh dedikasi dalam merancang serta mengeksekusi event berskala besar yang berdampak. Dengan semangat inovasi dan perhatian terhadap setiap detail, kami bekerja sama erat dengan Pemerintah Kota Batam, Dinas Pariwisata, berbagai komunitas pemuda kreatif, serta didukung oleh para sponsor dan mitra media yang memiliki visi sejalan untuk kemajuan Batam.</motion.p>
+      <motion.p className={paragraphStyle} variants={itemVariants}>BYTF 2026 diselenggarakan oleh <strong className="text-event-blue-dark font-semibold">[Phoenix Event Batam]</strong>, sebuah tim yang terdiri dari para profesional berpengalaman, kreatif, dan penuh dedikasi dalam merancang serta mengeksekusi event berskala besar yang berdampak. Dengan semangat inovasi dan perhatian terhadap setiap detail, kami bekerja sama erat dengan Pemerintah Kota Batam, Dinas Pariwisata, berbagai komunitas pemuda kreatif, serta didukung oleh para sponsor dan mitra media yang memiliki visi sejalan untuk kemajuan Batam.</motion.p>
       
       <motion.div 
         className="mt-8 bg-gradient-to-r from-event-accent/10 via-sky-50 to-teal-50 p-6 sm:p-8 rounded-xl shadow-lg border border-event-accent/30"
