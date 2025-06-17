@@ -42,7 +42,7 @@ export const ticketData: TicketTier[] = [
     id: "earlybird-two-day-pass",
     name: "Early Bird - Tiket Terusan (Hari 5 & 6)",
     price: "Rp 450.000",
-    originalPrice: "Rp 600.000", // (2x Regular Daily Price)
+    originalPrice: "Rp 550.000", // (2x Regular Daily Price)
     benefits: [
       "Akses ke area konser utama untuk Hari 5 DAN Hari 6",
       "Akses ke semua zona festival umum selama 2 hari",
@@ -56,7 +56,7 @@ export const ticketData: TicketTier[] = [
   {
     id: "regular-two-day-pass",
     name: "Regular - Tiket Terusan (Hari 5 & 6)",
-    price: "Rp 400.000", // As requested, though unusual pricing
+    price: "Rp 550.000", // As requested, though unusual pricing
     benefits: [
       "Akses ke area konser utama untuk Hari 5 DAN Hari 6",
       "Akses ke semua zona festival umum selama 2 hari",
