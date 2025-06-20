@@ -2,210 +2,110 @@
 import React, { useState } from 'react';
 import { motion, Variants, Easing } from 'framer-motion';
 import SponsorLogoGrid, { Sponsor } from '../SponsorLogoGrid';
-import { mockSponsors } from '../data/sponsor-data'; 
-import SponsorDetailModal from '../SponsorDetailModal'; 
+import { mockSponsors } from '../data/sponsor-data';
+import SponsorDetailModal from '../SponsorDetailModal';
 
 // --- STYLES ---
-const pageTitleStyle = "text-left text-3xl sm:text-4xl md:text-5xl font-extrabold text-event-text-heading mt-0 mb-10 pb-5 border-b-2 border-gray-200";
-const sectionTitleStyle = "text-left text-2xl sm:text-3xl font-bold text-event-text-heading mt-12 mb-8";
-const subSectionTitleStyle = "text-left text-xl sm:text-2xl md:text-3xl font-semibold text-event-text-heading mt-10 mb-6";
-const paragraphStyle = "mb-6 leading-relaxed text-event-text text-justify text-sm sm:text-base md:text-lg";
+const pageTitleStyle = "text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-event-blue via-event-accent to-event-green mb-4";
+const heroSubtitleStyle = "text-center text-base sm:text-lg md:text-xl text-gray-100 mb-10 max-w-3xl mx-auto leading-relaxed";
+const sectionTitleStyle = "text-left text-2xl sm:text-3xl md:text-4xl font-bold text-event-text-heading mt-16 mb-10 pb-4 border-b border-gray-200/80";
+const paragraphStyle = "mb-6 leading-relaxed text-event-text text-sm sm:text-base md:text-lg text-justify";
+const cardBaseStyle = "bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease p-6 flex flex-col";
 
 // --- ANIMATION VARIANTS ---
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as Easing, staggerChildren: 0.15 } 
-  }
+const pageVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.05 } }
 };
 
-const itemVariants: Variants = { 
+const heroItemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as Easing }
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as Easing } }
 };
 
-const cardVariants: Variants = { 
-  hidden: { opacity: 0, scale: 0.95, y: 25 },
-  visible: (i: number = 0) => ({
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.08, 
-      duration: 0.45,
-      ease: [0.22, 1, 0.36, 1] as Easing
-    }
-  })
+const sectionContentVariants: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as Easing, staggerChildren: 0.1 } }
+};
+
+const listItemVariants: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as Easing } }
+};
+
+const cardHoverEffect = {
+  scale: 1.03,
+  y: -5,
+  boxShadow: "0 10px 20px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08)"
 };
 
 // --- DATA STRUCTURES ---
-const tierDisplayConfig: Record<string, { titleHtml: string; customGridClasses?: string; tierTitleStyle: string; introBlurb?: string }> = {
-  "Platinum": { 
-    titleHtml: "💎 Sponsor <span class='text-yellow-400'>Platinum</span> Kami", 
-    customGridClasses: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 items-center justify-items-center",
-    tierTitleStyle: "text-2xl sm:text-3xl font-bold text-event-text-heading mt-12 mb-6 text-center",
-    introBlurb: "Kami mengucapkan terima kasih sebesar-besarnya kepada Sponsor Platinum kami atas kontribusi luar biasa dan kepercayaan mereka dalam menyukseskan BYTF 2026. Dukungan Anda adalah pilar utama festival ini."
-  },
-  "Gold": { 
-    titleHtml: "🥇 Sponsor <span class='text-amber-400'>Gold</span> Kami", 
-    customGridClasses: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-5 sm:gap-6 md:gap-8 items-center justify-items-center",
-    tierTitleStyle: "text-xl sm:text-2xl font-bold text-event-text-heading mt-10 mb-5 text-center",
-    introBlurb: "Dukungan berarti dari Sponsor Gold kami sangat vital bagi kemeriahan dan kualitas festival ini. Terima kasih atas komitmen Anda!"
-  },
-  "Silver": { 
-    titleHtml: "🥈 Sponsor <span class='text-slate-400'>Silver</span> Kami", 
-    customGridClasses: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6 items-center justify-items-center",
-    tierTitleStyle: "text-lg sm:text-xl font-bold text-event-text-heading mt-10 mb-5 text-center",
-    introBlurb: "Kami mengapresiasi dukungan berharga dari Sponsor Silver kami yang turut menyemarakkan dan memperkaya pengalaman di BYTF 2026."
-  },
-  "Community Partner": { 
-    titleHtml: "🤝 <span class='text-event-green'>Mitra Komunitas</span> Kami", 
-    tierTitleStyle: "text-md sm:text-lg font-semibold text-event-text-heading mt-10 mb-5 text-center",
-    introBlurb: "Kolaborasi erat dengan Mitra Komunitas memperkaya festival dengan beragam kegiatan kreatif dan semangat kebersamaan yang luar biasa."
-  },
-  "Media Partner": { 
-    titleHtml: "📰 <span class='text-event-blue-light'>Mitra Media</span> Kami", 
-    tierTitleStyle: "text-md sm:text-lg font-semibold text-event-text-heading mt-10 mb-5 text-center",
-    introBlurb: "Terima kasih kepada Mitra Media kami yang membantu menyebarkan berita, antusiasme, dan kemeriahan BYTF 2026 ke khalayak yang lebih luas."
-  },
-  "Other": {
-    titleHtml: "💖 Dukungan Lainnya",
-    tierTitleStyle: "text-md sm:text-lg font-semibold text-gray-600 mt-10 mb-5 text-center",
-    introBlurb: "Setiap bentuk dukungan sangat berarti bagi kami. Kami berterima kasih kepada semua pihak yang telah berkontribusi dalam menyukseskan BYTF 2026."
-  }
-};
-const tierOrder = ["Platinum", "Gold", "Silver", "Community Partner", "Media Partner", "Other"];
 
-interface SponsorshipPackageHighlight {
+interface StrategicAdvantage {
+  icon: string;
   title: string;
-  icon: string; 
-  description: string;
-  keyBenefits: string[];
-  idealFor?: string;
-  colorClass: string; 
-  textColorClass?: string; 
-  layoutClass?: string;
-  isPremium?: boolean; 
+  text: string;
 }
 
-const sponsorshipPackages: SponsorshipPackageHighlight[] = [
-  { 
-    title: "TITLE SPONSOR (PLATINUM+)", 
-    icon: "👑", 
-    description: "Kemitraan tertinggi dengan branding paling dominan (misal: \"BYTF 2026 presented by [Nama Brand Anda]\"). Kesempatan emas untuk integrasi brand yang mendalam.",
-    keyBenefits: [
-      "Hak penamaan event atau zona utama strategis",
-      "Eksposur brand maksimal di semua lini promosi",
-      "Aktivasi eksklusif & fasilitas VIP premium",
-      "Liputan media khusus dan dedicated content"
-    ],
-    idealFor: "Brand yang mencari dampak dan asosiasi tertinggi, ingin namanya terintegrasi secara mendalam dengan identitas festival.",
-    colorClass: "border-yellow-400 bg-yellow-50 hover:border-yellow-500",
-    textColorClass: "text-yellow-600",
-    layoutClass: "lg:col-span-3 md:col-span-2",
-    isPremium: true,
-  },
-  { 
-    title: "PLATINUM SPONSOR", 
-    icon: "💎", 
-    description: "Visibilitas sangat tinggi di berbagai area event strategis, materi promosi utama, dan liputan media. Pengakuan sebagai pilar pendukung festival.",
-    keyBenefits: [
-      "Logo besar dan menonjol di panggung utama & LED",
-      "Hak penamaan sub-zona atau program khusus",
-      "Slot iklan premium & fasilitas VIP eksklusif",
-      "Keterlibatan dalam konferensi pers"
-    ],
-    idealFor: "Brand besar yang menginginkan visibilitas premium, aktivasi brand yang kuat, dan pengakuan sebagai pendukung utama festival.",
-    colorClass: "border-sky-400 bg-sky-50 hover:border-sky-500", // Consider event-blue variant
-    textColorClass: "text-sky-600", // Consider event-blue variant
-    isPremium: true,
-  },
-  { 
-    title: "GOLD SPONSOR", 
-    icon: "🥇", 
-    description: "Branding signifikan, partisipasi dalam aktivasi panggung, dan booth di lokasi premium untuk interaksi maksimal dengan pengunjung.",
-    keyBenefits: [
-      "Branding menonjol di area event yang ramai",
-      "Kesempatan aktivasi panggung yang menarik",
-      "Booth di lokasi strategis untuk engagement tinggi",
-      "Logo di materi promosi sekunder"
-    ],
-    idealFor: "Brand yang mencari keseimbangan optimal antara eksposur signifikan, interaksi audiens yang bermakna, dan investasi strategis.",
-    colorClass: "border-amber-400 bg-amber-50 hover:border-amber-500",
-    textColorClass: "text-amber-600",
-  },
-  { 
-    title: "SILVER SPONSOR", 
-    icon: "🥈", 
-    description: "Dukungan berharga dengan eksposur brand di area tertentu, booth standar, dan pengakuan di platform digital serta materi cetak terbatas.",
-    keyBenefits: [
-      "Eksposur brand yang baik dan terlihat jelas",
-      "Booth standar untuk interaksi dan display produk",
-      "Penyebutan di media digital & materi cetak",
-      "Paket tiket komplimen"
-    ],
-    idealFor: "Brand yang ingin memulai kemitraan berdampak, mendapatkan eksposur brand yang solid, dan berinteraksi langsung dengan pengunjung.",
-    colorClass: "border-slate-400 bg-slate-100 hover:border-slate-500",
-    textColorClass: "text-slate-600",
-  },
-  { 
-    title: "MITRA ZONA / AKTIVASI", 
-    icon: "🧩", 
-    description: "Memiliki atau berkolaborasi dalam satu zona tematik (Gaming, Kuliner, Seni) atau aktivasi khusus yang kreatif dan imersif.",
-    keyBenefits: [
-      "Branding terfokus pada zona tematik pilihan",
-      "Interaksi langsung dengan audiens yang relevan",
-      "Kebebasan kreativitas dalam aktivasi brand",
-      "Asosiasi kuat dengan minat spesifik pengunjung"
-    ],
-    idealFor: "Brand yang ingin menargetkan audiens spesifik, menciptakan pengalaman brand yang unik dan tak terlupakan, serta berkolaborasi secara kreatif.",
-    colorClass: "border-orange-400 bg-orange-50 hover:border-orange-500",
-    textColorClass: "text-orange-600",
-  },
-  { 
-    title: "MITRA KOMUNITAS & UMKM", 
-    icon: "🤝", 
-    description: "Paket terjangkau yang dirancang khusus untuk mendukung partisipasi aktif komunitas lokal dan UMKM, menunjukkan dukungan nyata pada akar rumput.",
-    keyBenefits: [
-      "Memberikan platform bagi komunitas & UMKM untuk tampil",
-      "Menunjukkan dukungan nyata pada ekonomi lokal & kreatif",
-      "Membangun asosiasi brand yang positif dan dekat dengan masyarakat",
-      "Peluang co-branding dengan materi festival"
-    ],
-    idealFor: "Brand, organisasi, dan UMKM yang peduli terhadap pemberdayaan lokal, mendukung talenta komunitas, dan ingin membangun citra positif.",
-    colorClass: "border-purple-400 bg-purple-50 hover:border-purple-500",
-    textColorClass: "text-purple-600",
-  }
+const strategicAdvantages: StrategicAdvantage[] = [
+  { icon: "🎯", title: "Jangkau Audiens Luas & Berkualitas", text: "Terhubung secara autentik dengan puluhan ribu Gen Z & Milenial – demografi yang dinamis, melek digital, berpengaruh, dan haus akan pengalaman unik." },
+  { icon: "🤝", title: "Integrasi Brand yang Autentik", text: "Lebih dari sekadar logo. Kami berkolaborasi menciptakan pengalaman brand yang bermakna, berkesan mendalam, dan membangun koneksi jangka panjang dengan target audiens Anda." },
+  { icon: "🚀", title: "Perluas Jangkauan & Visibilitas Brand", text: "Manfaatkan pemasaran multi-kanal kami yang luas, hubungan masyarakat, dan kemitraan media untuk memamerkan brand Anda sebelum, selama, dan setelah festival." },
+  { icon: "📈", title: "ROI & Dampak Terukur", text: "Kami berkomitmen memberikan hasil nyata. Kemitraan kami dirancang dengan KPI yang jelas, dan kami menyediakan laporan pasca-acara yang komprehensif." },
+  { icon: "🌟", title: "Asosiasi Komunitas yang Positif", text: "Selaraskan brand Anda dengan festival yang merayakan pemuda, budaya, dan pariwisata Batam, membangun citra positif dan kehadiran komunitas yang kuat." },
+  { icon: "💡", title: "Platform Aktivasi Inovatif", text: "Dari zona imersif hingga keterlibatan digital, kami menawarkan platform yang beragam dan kreatif untuk menghidupkan cerita brand Anda secara efektif." },
 ];
 
-const whySponsorBenefits = [
-    { icon: "📢", title: "Branding Dominan & Luas", text: "Logo Anda akan terpampang strategis di berbagai materi promosi online dan offline, panggung utama, LED screen, hingga media digital kami, menjangkau audiens yang masif dan beragam." },
-    { icon: "🎯", title: "Akses Eksklusif ke Target Audiens Muda", text: "Terhubung langsung dengan generasi Z dan milenial yang dinamis, kreatif, melek digital, dan memiliki daya beli yang signifikan." },
-    { icon: "✨", title: "Aktivasi Brand Kreatif & Imersif", text: "Dapatkan ruang untuk menghadirkan zona eksklusif brand Anda, booth interaktif, games menarik, instalasi seni, atau sesi talkshow yang melibatkan audiens secara langsung." },
-    { icon: "📰", title: "Liputan Media Luas & Terpercaya", text: "Manfaatkan eksposur melalui jaringan media partner kami yang solid, mencakup media lokal, nasional, hingga influencer ternama." },
-    { icon: "📊", title: "Wawasan Data Demografi Pengunjung", text: "Akses ke data agregat pengunjung (non-pribadi) untuk sponsor utama/zona eksklusif, membantu Anda mengukur dampak dan merencanakan strategi masa depan." },
-    { icon: "🌱", title: "Kontribusi Nyata & Citra Positif", text: "Jadilah bagian dari gerakan positif yang mendukung ekonomi kreatif, pariwisata berkelanjutan, dan pemberdayaan generasi muda Batam, meningkatkan citra positif brand Anda." }
+interface AudienceDemographic {
+  icon: string;
+  stat: string;
+  label: string;
+  colorClass: string;
+}
+
+const audienceDemographics: AudienceDemographic[] = [
+  { icon: "👥", stat: "50.000+", label: "Pengunjung Unik (Estimasi 6 Hari)", colorClass: "bg-event-blue text-white" },
+  { icon: "🧑‍🎓", stat: "70%", label: "Gen Z & Milenial (16-35 thn)", colorClass: "bg-event-green text-white" },
+  { icon: "📱", stat: "95%", label: "Aktif di Media Sosial Harian", colorClass: "bg-event-accent text-white" },
+  { icon: "🎶", stat: "Minat Utama", label: "Musik, Wisata, Teknologi, Fashion, Kuliner", colorClass: "bg-purple-500 text-white" },
+  { icon: "🛒", stat: "Daya Beli", label: "Minat Tinggi: Pengalaman & Produk Lokal", colorClass: "bg-yellow-500 text-gray-800" },
+  { icon: "🌏", stat: "Jangkauan", label: "Batam, Kepri, Nasional & Regional (SG/MY)", colorClass: "bg-sky-500 text-white" },
 ];
 
-// --- COMPONENT ---
+interface OpportunityPillar {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  idealFor: string;
+  colorClass: string;
+}
+
+const opportunityPillars: OpportunityPillar[] = [
+  { id: "headline", icon: "🏆", title: "Visibilitas Brand Unggulan", description: "Amankan visibilitas premium di seluruh area festival. Opsi meliputi hak penamaan panggung utama, branding di seluruh festival, dan penempatan logo yang menonjol.", idealFor: "Memaksimalkan ingatan brand dan membangun kepemimpinan pasar.", colorClass: "border-event-blue-dark bg-event-blue-extralight/70" },
+  { id: "experiential", icon: "✨", title: "Aktivasi Berbasis Pengalaman", description: "Ciptakan dunia brand yang imersif. Kembangkan zona interaktif, pameran produk, pengalaman gamifikasi, atau lounge bermerek.", idealFor: "Memperdalam koneksi dengan audiens dan menciptakan kenangan tak terlupakan.", colorClass: "border-event-green-dark bg-event-green-light/20" },
+  { id: "digital", icon: "💻", title: "Integrasi Digital & Konten", description: "Perluas jangkauan Anda jauh melampaui area festival. Berkolaborasi menciptakan kampanye media sosial yang menarik, konten bersponsor, atau kolaborasi dengan influencer.", idealFor: "Mendorong keterlibatan online dan membangun jejak digital.", colorClass: "border-event-accent-dark bg-event-accent-light/20" },
+  { id: "targeted", icon: "🎯", title: "Jangkauan Segmen Tertarget", description: "Terhubung dengan titik minat spesifik. Sponsori zona khusus (mis., Zona Budaya Pop, Pojok Youthpreneur, Area Kuliner) atau kompetisi tertentu.", idealFor: "Menjangkau audiens khusus yang sangat terlibat secara efektif.", colorClass: "border-purple-600 bg-purple-100/80" },
+  { id: "community", icon: "🤝", title: "Dampak Komunitas & CSR", description: "Tunjukkan komitmen brand Anda. Dukung penampilan bakat lokal, inisiatif keberlanjutan, atau lokakarya pengembangan pemuda.", idealFor: "Meningkatkan reputasi brand dan menunjukkan tanggung jawab sosial.", colorClass: "border-yellow-600 bg-yellow-100/70" },
+];
+
+interface JourneyStep {
+  step: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+const collaborativeJourney: JourneyStep[] = [
+  { step: "1", icon: "📞", title: "Diskusi Awal (Discovery Call)", description: "Kami memulai dengan mendengarkan: memahami tujuan brand Anda, target audiens, dan pertimbangan anggaran." },
+  { step: "2", icon: "📝", title: "Proposal Kustom", description: "Tim kami menyusun cetak biru kemitraan yang disesuaikan, menguraikan hasil yang jelas, ide aktivasi, dan KPI yang terukur." },
+  { step: "3", icon: "🚀", title: "Aktivasi & Eksekusi", description: "Dengan persetujuan Anda, tim kami yang berdedikasi memastikan implementasi semua elemen kemitraan berjalan lancar, mengelola setiap detail." },
+  { step: "4", icon: "📊", title: "Pelaporan & Tinjauan", description: "Setelah festival, terima laporan komprehensif yang merinci dampak, jangkauan, keterlibatan, dan pembelajaran utama untuk mengukur kesuksesan." },
+];
+
 const SponsorsPage: React.FC = () => {
   const [selectedSponsor, setSelectedSponsor] = useState<Sponsor | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const sponsorsByTier = mockSponsors.reduce((acc, sponsor) => {
-    const tier = sponsor.tier && tierOrder.includes(sponsor.tier) ? sponsor.tier : "Other";
-    if (!acc[tier]) {
-      acc[tier] = [];
-    }
-    acc[tier].push(sponsor);
-    return acc;
-  }, {} as Record<string, Sponsor[]>);
 
   const handleSponsorClick = (sponsor: Sponsor) => {
     setSelectedSponsor(sponsor);
@@ -214,207 +114,221 @@ const SponsorsPage: React.FC = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedSponsor(null), 300);
+    setTimeout(() => setSelectedSponsor(null), 300); // Delay for exit animation
   };
 
+  const handleScrollToContact = () => {
+    const contactSection = document.getElementById('contact-sponsorship-cta');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+
   return (
-    <motion.div 
-      id="sponsors"
+    <motion.div
+      id="sponsors-blueprint"
       initial="hidden"
       animate="visible"
-      variants={sectionVariants}
-      className="space-y-16 md:space-y-20" 
+      variants={pageVariants}
+      className="space-y-12 md:space-y-16 lg:space-y-20"
     >
-      <motion.h2 className={pageTitleStyle} variants={itemVariants}>Dukung BYTF 2026: Investasi Strategis untuk Brand Anda!</motion.h2>
-      <motion.p className={paragraphStyle} variants={itemVariants}>
-        Batam Youth & Tourism Festival (BYTF) 2026 bukan hanya sekadar acara, melainkan sebuah platform dinamis yang menghubungkan brand Anda dengan ribuan pemuda energik, komunitas kreatif, dan wisatawan potensial. Jadilah mitra kami dan raih eksposur tak tertandingi serta asosiasi brand yang positif dengan festival pemuda terbesar dan paling dinanti di Batam.
-      </motion.p>
-
-      <motion.section variants={sectionVariants}>
-        <motion.h3 className={subSectionTitleStyle} variants={itemVariants}>Mengapa Kemitraan dengan BYTF 2026 adalah Langkah Cerdas?</motion.h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-6">
-            {whySponsorBenefits.map((benefit, index) => (
-                <motion.div 
-                    key={index} 
-                    className="flex items-start gap-4 sm:gap-5 p-6 bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:-translate-y-1"
-                    custom={index}
-                    variants={cardVariants}
-                >
-                    <span className="text-4xl sm:text-5xl text-event-accent mt-1 shrink-0">{benefit.icon}</span>
-                    <div>
-                        <h4 className="font-semibold text-event-blue text-lg sm:text-xl mb-1.5">{benefit.title}</h4>
-                        <p className="text-sm text-event-text-muted leading-relaxed">{benefit.text}</p>
-                    </div>
-                </motion.div>
-            ))}
+      {/* Hero Section */}
+      <motion.section 
+        className="text-center bg-gradient-to-br from-event-blue-dark via-event-blue to-event-accent py-16 sm:py-20 md:py-28 rounded-3xl shadow-2xl relative overflow-hidden"
+        variants={heroItemVariants}
+      >
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0"></div>
+        <div className="absolute inset-0 bg-subtle-dots bg-dots-sm opacity-10 z-[1]"></div>
+        <div className="relative z-10 px-4">
+          <motion.h2 className={pageTitleStyle} variants={heroItemVariants}>
+            Nyalakan Dampak Brand Anda Bersama BYTF 2026
+          </motion.h2>
+          <motion.p className={heroSubtitleStyle} variants={heroItemVariants} transition={{ delay: 0.1 }}>
+            Lebih dari sekadar festival, BYTF 2026 adalah ekosistem dinamis tempat bertemunya semangat pemuda, pesona pariwisata, dan denyut inovasi. Jadilah mitra kami untuk terhubung secara autentik dengan audiens yang bersemangat dan terlibat aktif, serta mencapai tujuan brand yang terukur.
+          </motion.p>
+          <motion.div 
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-8"
+            variants={heroItemVariants}
+            transition={{ delay: 0.2 }}
+          >
+            <motion.a
+              href="#" 
+              onClick={(e)=>{e.preventDefault(); alert("Prospektus Sponsorship PDF (Placeholder). Fitur segera datang.")}}
+              className="bg-white text-event-blue font-bold px-8 py-3.5 rounded-lg shadow-lg hover:bg-gray-100 active:bg-gray-200 transform hover:scale-105 active:scale-95 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ y: -2 }}
+            >
+              Unduh Prospektus Sponsorship
+            </motion.a>
+            <motion.button
+              onClick={handleScrollToContact}
+              className="border-2 border-white text-white font-bold px-8 py-3.5 rounded-lg hover:bg-white hover:text-event-accent active:bg-white/90 transform hover:scale-105 active:scale-95 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ y: -2 }}
+            >
+              Mari Diskusi Visi Anda
+            </motion.button>
+          </motion.div>
         </div>
       </motion.section>
 
-      <motion.section variants={sectionVariants}>
-        <motion.h3 className={subSectionTitleStyle} variants={itemVariants}>Pilihan Paket Kemitraan Eksklusif</motion.h3>
-        <motion.p className={paragraphStyle} variants={itemVariants}>Kami menawarkan berbagai pilihan paket sponsorship yang dirancang untuk memenuhi kebutuhan dan tujuan pemasaran brand Anda. Setiap paket dapat disesuaikan lebih lanjut untuk sinergi yang maksimal:</motion.p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-6"> 
-          {sponsorshipPackages.map((pkg, index) => (
-            <motion.div 
-              key={pkg.title} 
-              className={`flex flex-col p-6 rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 ease-custom-ease transform hover:-translate-y-1.5 group ${pkg.colorClass} ${pkg.layoutClass || ''} ${pkg.isPremium ? 'border-l-[10px] border-t-4' : 'border-2'}`}
-              custom={index}
-              variants={cardVariants}
+      {/* Why BYTF 2026? Your Strategic Advantage */}
+      <motion.section variants={sectionContentVariants}>
+        <h3 className={sectionTitleStyle}>Mengapa BYTF 2026? Keunggulan Strategis Anda.</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {strategicAdvantages.map((advantage, index) => (
+            <motion.div
+              key={index}
+              className={`${cardBaseStyle} group border border-gray-200/70 hover:border-event-accent/50`}
+              variants={listItemVariants}
+              whileHover={cardHoverEffect}
+            >
+              <div className="text-4xl sm:text-5xl mb-4 text-event-accent group-hover:text-event-accent-dark transition-colors">{advantage.icon}</div>
+              <h4 className="text-lg sm:text-xl font-semibold text-event-blue mb-2.5 group-hover:text-event-blue-dark transition-colors">{advantage.title}</h4>
+              <p className="text-sm text-event-text-muted leading-relaxed">{advantage.text}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Meet Your Next Generation of Advocates */}
+      <motion.section variants={sectionContentVariants}>
+        <h3 className={sectionTitleStyle}>Kenali Calon Advokat Brand Anda: Audiens BYTF</h3>
+        <p className={`${paragraphStyle} text-center max-w-3xl mx-auto`}>
+            BYTF 2026 menarik audiens yang dinamis dan melek digital, terutama Gen Z dan Milenial. Mereka adalah pencipta tren, pengadopsi awal, dan advokat brand yang vokal, yang mencari pengalaman autentik serta menghargai brand yang selaras dengan minat mereka. Inilah kesempatan Anda untuk berinteraksi langsung dengan mereka.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-8">
+          {audienceDemographics.map((demo, index) => (
+            <motion.div
+              key={index}
+              className={`p-5 sm:p-6 rounded-xl shadow-lg text-center flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300 ${demo.colorClass}`}
+              variants={listItemVariants}
+              whileHover={{boxShadow: "0 0 25px -5px rgba(0,0,0,0.2)"}}
+            >
+              <div className="text-4xl sm:text-5xl mb-3">{demo.icon}</div>
+              <div className="text-2xl sm:text-3xl font-bold mb-1">{demo.stat}</div>
+              <p className="text-xs sm:text-sm font-medium uppercase tracking-wider opacity-90">{demo.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Craft Your Custom Partnership: The BYTF Blueprint */}
+      <motion.section variants={sectionContentVariants}>
+        <h3 className={sectionTitleStyle}>Rancang Kemitraan Kustom Anda: Cetak Biru BYTF</h3>
+        <p className={`${paragraphStyle} text-center max-w-3xl mx-auto`}>
+          Kami tidak menawarkan paket standar. Kami berkolaborasi menciptakan kemitraan yang disesuaikan dengan <strong>tujuan brand Anda</strong>, anggaran, dan tingkat keterlibatan yang diinginkan. Jelajahi pilar-pilar peluang ini sebagai titik awal, dan mari kita bangun cetak biru kesuksesan Anda di BYTF 2026.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8">
+          {opportunityPillars.map((pillar) => (
+            <motion.div
+              key={pillar.id}
+              className={`${cardBaseStyle} group border-2 ${pillar.colorClass} hover:shadow-xl`}
+              variants={listItemVariants}
+              whileHover={cardHoverEffect}
             >
               <div className="flex items-center mb-4">
-                <span className={`text-4xl sm:text-5xl mr-4 ${pkg.textColorClass || 'text-event-blue'}`}>{pkg.icon}</span>
-                <h4 className={`text-xl sm:text-2xl font-bold ${pkg.textColorClass || 'text-event-blue-dark'}`}>{pkg.title}</h4>
+                <span className="text-4xl sm:text-5xl mr-4">{pillar.icon}</span>
+                <h4 className="text-xl sm:text-2xl font-bold text-event-text-heading">{pillar.title}</h4>
               </div>
-              <p className="text-sm text-gray-700 mb-5 flex-grow leading-relaxed">{pkg.description}</p>
-              
-              <div className="mb-5">
-                <p className={`text-sm font-semibold ${pkg.textColorClass || 'text-gray-800'} mb-2.5`}>Manfaat Utama:</p>
-                <ul className="space-y-2">
-                  {pkg.keyBenefits.map((benefitText, i) => (
-                    <li key={i} className="flex items-start text-xs sm:text-sm text-gray-600">
-                      <span className={`mr-2.5 shrink-0 ${pkg.isPremium ? 'text-yellow-500' : 'text-event-green'}`}>✅</span>
-                      <span>{benefitText}</span>
-                    </li>
-                  ))}
-                </ul>
+              <p className="text-sm text-gray-700 mb-4 flex-grow leading-relaxed">{pillar.description}</p>
+              <div className="mt-auto p-3 bg-white/70 rounded-md border border-dashed border-gray-400">
+                <p className="text-xs sm:text-sm italic text-gray-600">
+                  <span className="font-semibold text-gray-800">🎯 Ideal untuk:</span> {pillar.idealFor}
+                </p>
               </div>
-
-              {pkg.idealFor && (
-                <div className="mt-auto mb-5 p-3.5 bg-white/60 rounded-lg border border-dashed border-gray-300">
-                    <p className="text-xs sm:text-sm italic text-gray-700">
-                        <span className={`font-bold ${pkg.textColorClass || 'text-gray-700'}`}>💡 Ideal untuk:</span> {pkg.idealFor}
-                    </p>
-                </div>
-              )}
-              <button 
-                onClick={() => {
-                  const contactSection = document.getElementById('contact-sponsorship-cta');
-                  if (contactSection) {
-                    contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }
-                }}
-                className={`mt-auto w-full font-semibold py-3 px-4 rounded-lg text-sm sm:text-base transition-colors duration-200 shadow-button inline-flex items-center justify-center gap-2 ${pkg.isPremium ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-event-blue hover:bg-event-blue-dark text-white'} active:scale-95`}
+               <button
+                onClick={handleScrollToContact}
+                className="mt-5 w-full font-semibold py-3 px-4 rounded-lg text-sm sm:text-base transition-colors duration-200 shadow-button bg-event-blue hover:bg-event-blue-dark text-white active:scale-95"
               >
-                Pelajari Lebih Lanjut <span aria-hidden="true" className="transform group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
+                Diskusikan Opsi {pillar.title.split(' ')[0]}
               </button>
             </motion.div>
           ))}
         </div>
-        <motion.p className={`${paragraphStyle} mt-10 italic text-center text-gray-500`} variants={itemVariants}>Detail lengkap mengenai benefit, investasi, dan opsi kustomisasi untuk masing-masing paket tersedia dalam proposal sponsorship resmi kami. Jangan ragu untuk menghubungi kami!</motion.p>
       </motion.section>
 
-      <motion.section variants={sectionVariants} className="my-16 md:my-20">
-        <motion.h2 
-            className={sectionTitleStyle}
-            variants={itemVariants}
-        >
-            Apresiasi untuk Para Sponsor & Mitra Kami
-        </motion.h2>
-        {Object.keys(sponsorsByTier).length === 0 ? (
-            <motion.p 
-              className="text-center text-event-text-muted py-8 text-lg"
-              variants={itemVariants}
-            >
-              Daftar sponsor dan mitra kami akan segera diumumkan. Terima kasih atas dukungan Anda yang luar biasa!
-            </motion.p>
-        ) : (
-            tierOrder.map((tierKey) => {
-              const sponsorsInTier = sponsorsByTier[tierKey];
-              const config = tierDisplayConfig[tierKey] || tierDisplayConfig["Other"];
-              if (sponsorsInTier && sponsorsInTier.length > 0) {
-                return (
-                  <motion.div 
-                    key={tierKey} 
-                    className="mb-12 md:mb-16 flex flex-col items-center w-full" 
-                    variants={sectionVariants} 
-                  >
-                    {config.introBlurb && (
-                      <motion.p 
-                        className="text-center text-sm sm:text-base text-event-text-muted mb-6 md:mb-8 max-w-3xl mx-auto px-4"
-                        variants={itemVariants}
-                      >
-                        {config.introBlurb}
-                      </motion.p>
-                    )}
-                    <motion.h3 
-                      className={config.tierTitleStyle}
-                      variants={itemVariants}
-                      dangerouslySetInnerHTML={{ __html: config.titleHtml }}
-                    />
-                    <SponsorLogoGrid 
-                      sponsors={sponsorsInTier} 
-                      customGridClasses={config.customGridClasses} 
-                      onSponsorClick={handleSponsorClick} 
-                    />
-                  </motion.div>
-                );
-              }
-              return null;
-            })
-        )}
-      </motion.section>
-      
-      <motion.section variants={sectionVariants}>
-        <motion.h3 className={subSectionTitleStyle} variants={itemVariants}>Bagaimana Cara Menjadi Sponsor BYTF 2026?</motion.h3>
-        <motion.p className={paragraphStyle} variants={itemVariants}>
-          Bergabung sebagai sponsor BYTF 2026 adalah proses yang mudah dan kolaboratif. Kami siap membantu Anda menemukan paket yang paling sesuai dengan strategi brand Anda. Berikut langkah-langkahnya:
-        </motion.p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center mt-6">
-          {[
-            { number: "1", title: "Jelajahi Paket Kami", description: "Pahami berbagai pilihan paket kemitraan yang kami tawarkan dan identifikasi yang paling sesuai dengan tujuan brand Anda.", icon: "🔍" },
-            { number: "2", title: "Hubungi Tim Kemitraan", description: "Sampaikan minat Anda kepada tim kami. Kami siap mendiskusikan kebutuhan spesifik dan menjawab semua pertanyaan Anda.", icon: "💬" },
-            { number: "3", title: "Kustomisasi & Kolaborasi", description: "Bersama-sama, kita akan merancang proposal kemitraan yang disesuaikan, memastikan sinergi maksimal dan dampak yang optimal.", icon: "✨" }
-          ].map((step, index) => (
+      {/* Our Collaborative Journey */}
+      <motion.section variants={sectionContentVariants}>
+        <h3 className={sectionTitleStyle}>Perjalanan Kolaboratif Kita: Dari Visi ke Dampak Nyata</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-8">
+          {collaborativeJourney.map((item) => (
             <motion.div
-              key={step.number}
-              className="bg-white p-6 sm:p-8 rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 transform hover:scale-105"
-              custom={index}
-              variants={cardVariants} 
+              key={item.step}
+              className={`${cardBaseStyle} text-center items-center border border-gray-200/70 group`}
+              variants={listItemVariants}
+              whileHover={cardHoverEffect}
             >
-              <div className="text-6xl sm:text-7xl mb-5 text-event-accent">{step.icon}</div>
-              <h4 className="text-xl sm:text-2xl font-semibold text-event-blue mb-3">{step.title}</h4>
-              <p className="text-sm text-event-text-muted leading-relaxed">{step.description}</p>
+              <div className="bg-event-accent text-white rounded-full w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center text-2xl sm:text-3xl font-bold mb-5 shadow-lg group-hover:bg-event-accent-dark transition-colors">{item.icon}</div>
+              <h4 className="text-lg sm:text-xl font-semibold text-event-blue mb-2.5">{item.step}. {item.title}</h4>
+              <p className="text-xs sm:text-sm text-event-text-muted leading-relaxed">{item.description}</p>
             </motion.div>
           ))}
         </div>
       </motion.section>
 
-      <motion.section 
-        id="contact-sponsorship-cta"
-        className="text-center bg-gradient-to-br from-event-blue via-event-accent to-event-green hover:from-event-blue-dark hover:via-event-accent-dark hover:to-event-green-dark transition-all text-white p-8 sm:p-10 md:p-12 rounded-2xl mt-12 shadow-xl" 
-        variants={sectionVariants} 
-      >
-        <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-5 tracking-tight">Mari Bersinergi untuk Kesuksesan Bersama!</h3>
-        <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-          Bergabunglah dengan BYTF 2026 dan jadilah bagian integral dari festival yang akan membentuk masa depan kreatif Batam. Ini adalah kesempatan emas untuk meningkatkan visibilitas brand Anda, menjangkau pasar yang relevan, dan menunjukkan komitmen Anda terhadap pengembangan komunitas.
-        </p>
-        <p className="mt-4 text-lg sm:text-xl mb-4 font-medium">
-          Untuk mendapatkan proposal sponsorship atau diskusi lebih lanjut, hubungi tim kemitraan kami:
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
-            <a 
-              href="mailto:sponsorship.bytfest@gmail.com?subject=Inquiry%20Sponsorship%20BYTF%202026" 
-              className="inline-flex items-center justify-center gap-2.5 bg-white text-event-blue font-bold px-8 py-3.5 rounded-lg shadow-button hover:bg-gray-100 active:bg-gray-200 transform hover:scale-105 active:scale-95 transition-all duration-200 text-base sm:text-lg"
+      {/* Our Esteemed Partners */}
+      <motion.section variants={sectionContentVariants} className="my-16 md:my-20">
+        <h3 className={sectionTitleStyle}>Bergabunglah dengan Komunitas Brand Visioner</h3>
+        {mockSponsors.length === 0 ? (
+          <motion.p
+            className="text-center text-event-text-muted py-8 text-lg"
+            variants={listItemVariants}
+          >
+            Daftar mitra terhormat kami untuk BYTF 2026 terus bertambah. Jadilah yang pertama bergabung dengan kami!
+          </motion.p>
+        ) : (
+          <motion.div
+            className="mt-8 flex flex-col items-center w-full"
+            variants={sectionContentVariants}
+          >
+             <motion.p
+              className="text-center text-sm sm:text-base text-event-text-muted mb-6 md:mb-8 max-w-3xl mx-auto px-4"
+              variants={listItemVariants}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
-              Email Tim Kemitraan
-            </a>
-            <a 
-              href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20untuk%20menjadi%20sponsor%20BYTF%202026." 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-flex items-center justify-center gap-2.5 border-2 border-white text-white font-bold px-8 py-3.5 rounded-lg hover:bg-white hover:text-event-accent active:bg-white/90 transform hover:scale-105 active:scale-95 transition-all duration-200 text-base sm:text-lg"
-            >
-               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 16 16">
-                 <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.1-.8-.396-1.028-.442-.228-.046-.393-.069-.557.069-.164.139-.393.442-.482.529-.09.087-.179.099-.338.033-.16-.065-.678-.247-1.282-.782-.459-.407-.768-.908-.857-1.064-.09-.156-.009-.239.061-.326.064-.082.139-.208.209-.309.07-.1.093-.165.139-.276.046-.112.023-.204-.011-.29Zm-.888-.859c-.276-.299-.492-.37-.666-.37h-.093c-.173 0-.37.078-.545.37-.174.292-.666.836-.666 2.036 0 1.2.69 2.357.782 2.523.092.166 1.397 2.136 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943s-.164-.139-.328-.234Z"/>
-               </svg>
-              WhatsApp Tim Kemitraan
-            </a>
-        </div>
-        <p className="mt-10 text-gray-50 font-semibold text-xl">Kami antusias untuk berkolaborasi dengan Anda!</p>
+             Kami bangga berkolaborasi dengan organisasi dan brand terkemuka yang memiliki visi yang sama untuk pemberdayaan pemuda dan pengembangan pariwisata di Batam.
+            </motion.p>
+            <SponsorLogoGrid
+              sponsors={mockSponsors}
+              onSponsorClick={handleSponsorClick}
+              customGridClasses="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 sm:gap-6 md:gap-8 items-center justify-items-center w-full"
+            />
+          </motion.div>
+        )}
       </motion.section>
 
-      <SponsorDetailModal 
+      {/* Final CTA Section */}
+      <motion.section
+        id="contact-sponsorship-cta"
+        className="text-center bg-gradient-to-tr from-event-green via-event-accent to-event-blue hover:from-event-green-dark hover:via-event-accent-dark hover:to-event-blue-dark transition-all text-white p-10 sm:p-12 md:p-16 rounded-3xl mt-12 shadow-2xl"
+        variants={sectionContentVariants}
+      >
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Siap Membangun Legasi BYTF Anda?</h3>
+        <p className="text-base sm:text-lg md:text-xl text-gray-50 mb-10 max-w-3xl mx-auto leading-relaxed">
+          Ini adalah kesempatan Anda untuk mengangkat brand Anda, terhubung dengan audiens yang penuh semangat, dan membuat dampak jangka panjang. Mari ciptakan sesuatu yang luar biasa bersama-sama.
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+            <motion.a
+              href="mailto:sponsorship.bytfest@gmail.com?subject=Permintaan%20Kemitraan%20-%20BYTF%202026"
+              className="inline-flex items-center justify-center gap-2.5 bg-white text-event-blue font-bold px-8 py-3.5 rounded-lg shadow-lg hover:bg-gray-100 active:bg-gray-200 transform hover:scale-105 active:scale-95 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ y: -2 }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg>
+              Jadwalkan Konsultasi
+            </motion.a>
+            <motion.a
+              href="#" 
+              onClick={(e)=>{e.preventDefault(); alert("Prospektus Sponsorship PDF (Placeholder). Fitur segera datang.")}}
+              className="inline-flex items-center justify-center gap-2.5 border-2 border-white text-white font-bold px-8 py-3.5 rounded-lg hover:bg-white hover:text-event-accent active:bg-white/90 transform hover:scale-105 active:scale-95 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
+              whileHover={{ y: -2 }}
+            >
+               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              Unduh Prospektus Lengkap
+            </motion.a>
+        </div>
+        <p className="mt-12 text-gray-100 font-semibold text-xl">Mari jadikan BYTF 2026 kesuksesan tak terlupakan, bersama-sama!</p>
+      </motion.section>
+
+      <SponsorDetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
         sponsor={selectedSponsor}
